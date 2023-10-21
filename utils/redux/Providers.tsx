@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { Header } from "@/components";
 import Footer from "@/components/footer";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface ProvidersProps {
   children: ReactNode;
