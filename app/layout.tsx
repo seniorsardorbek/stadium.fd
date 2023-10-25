@@ -1,11 +1,12 @@
-import { Header } from '@/components'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Footer from '@/components/footer'
-import Providers from '@/utils/redux/Providers'
+import {  Poppins } from 'next/font/google'
+import Providers from '@/app/providers'
 import "react-toastify/dist/ReactToastify.css";
-const inter = Inter({ subsets: ['latin'] })
+const inter = Poppins({
+  subsets: ['latin'],
+  weight: '400'
+})
 export const dynamic = 'auto'
 export const dynamicParams = true
 export const revalidate = false
@@ -17,7 +18,6 @@ export const metadata: Metadata = {
   title: 'Stadion rent ',
   description: "O'zingizning stadioningizni xarid qiling",
 }
-
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uz">
-      <body className={`${inter.className} transition-all`}> <Providers>  {children}</Providers></body>
+      <body className={`${inter.className} transition-all `}> <Providers>  {children}</Providers></body>
     </html>
   )
 }

@@ -22,7 +22,6 @@ const Register = () => {
     getData
       .post("/auth/register", data)
       .then((res) => {
-        console.log(res);
 
         if (res.status === 201) {
           dispatch(setToken({ token: res.data.token }));
@@ -39,7 +38,6 @@ const Register = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(data);
   function googleAuth() {
     getData("/auth/google/Register");
   }

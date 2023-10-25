@@ -1,28 +1,25 @@
-import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import config from "@/utils/config";
+import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 
-
-
-export default function SimpleMap() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAxwHSME0662shRNoOUMfK_AkaBVFfTc-Y" as string,
-  });
-  
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
-}
-
-function Map() {
-  const center = useMemo(() => ({ lat: 41.311081, lng: 69.240562 }), []);
-
-  return (
-    <GoogleMap 
-      zoom={12}
-      center={center}
-      mapContainerClassName="relative w-[95%] h-[80vh]"
-    >
-      <Marker   position={center} />
-    </GoogleMap>
-  );
-}
+export const SimpleMap = ({ lat, lng }: { lat: number; lng: number }) => (
+  <YMaps
+    query={{
+      suggest_apikey: config.mapKey,
+      apikey: config.mapKey,
+    }}
+  >
+    <div className="w-full h-full">
+      <Map
+        style={{
+          width: "100%",
+          minWidth: "220px",
+          height: "45vh",
+          minHeight: "440px",
+        }}
+        defaultState={{ center: [lat, lng], zoom: 14 }}
+      >
+        <Placemark geometry={[lat, lng]} />
+      </Map>
+    </div>
+  </YMaps>
+);

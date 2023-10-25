@@ -25,7 +25,7 @@ const Card: FC<{ stadion: StadionType }> = ({ stadion }) => {
             <Link href={`stadium/${stadion._id}`} className="flex items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -">
                 <p className="w-[70%]" >
                     {
-                        stadion.destination.substring(0, 130)
+                        stadion.destination.substring(0,50)
                     }...
                 </p>
                 <div className="flex  flex-col justify-end">

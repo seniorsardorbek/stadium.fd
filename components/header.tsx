@@ -1,12 +1,15 @@
 "use client";
+import { setUserLoc } from "@/utils/redux/store/dataSlice";
 import {
   HomeOutlined,
   InfoOutlined,
   LocalActivityOutlined,
+  NearMe,
   SportsSoccerOutlined
 } from "@mui/icons-material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 function Header() {
@@ -14,8 +17,10 @@ function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [isHeaderShrunk, setIsHeaderShrunk] = useState(false);
+  const dispatch = useDispatch()
   // const { userdata } = useSelector((state: any) => state.data);
   useEffect(() => {
+    getLocation()
     const userPrefersDark = localStorage.getItem("darkMode");
     if (userPrefersDark === "true") {
       setDarkMode(true);
@@ -31,6 +36,7 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+
   }, []);
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -52,6 +58,49 @@ function Header() {
   };
   function toggleDarkMode() {
     setDarkMode(!darkMode);
+  }
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        // Success: The user's location is available
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        console.log(longitude , latitude);
+        // Do something with the latitude and longitude
+      },
+      function (error) {
+        // Error: Handle any errors that occur
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.log(error);
+            
+            // The user denied the request for location.
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.log(error);
+            // The browser couldn't determine the user's location.
+            break;
+          case error.TIMEOUT:
+            console.log(error);
+            // The request to get user location timed out.
+            break;
+         
+        }
+      }
+    );
+    
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const newlat = position.coords.latitude;
+        const newlng = position.coords.longitude;
+        console.log(`Latitude: ${newlat}, Longitude: ${newlng}`);
+     dispatch(setUserLoc({lng : position.coords.longitude , lat : position.coords.latitude}))
+
+      });
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
   }
   return (
     <header
@@ -218,6 +267,17 @@ function Header() {
                 <LocalActivityOutlined />
               </span>{" "}
               Bookinglar
+            </Link>
+          </li>
+          <li onClick={toggleMenu}>
+            <Link
+              href="/nearest"
+              className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
+            >
+              <span className="visible md:hidden">
+                <NearMe />
+              </span>{" "}
+              Atrofdagilar
             </Link>
           </li>
           <li onClick={toggleMenu}>

@@ -89,3 +89,10 @@ body {
 main {
   flex: 1; /* Allows the main content to expand to fill the remaining space */
 }
+.ymaps-2-1-79-map{
+  width: 100%;
+  height: 70vh;
+}
+.dark{
+  background-color: rgb(17 24 39)
+}

@@ -28,7 +28,6 @@ const Bookings: FC<Props> = ({ stadionId }) => {
             [e.target.name]: e.target.value,
         }));
     };
-    console.log(currentDate);
     const currentFormattedDate = getCurrentFormattedDate(currentDate);
     
     const handleNextDayClick = () => {
@@ -60,7 +59,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         getData
             .post("bookings", data, { headers: { authorization: `Bearer ${token}` } })
             .then((res) => {
-                toast.success(res.data?.msg)
+                toast.success(res.data?.msg )
             })
             .catch((err) => {
                 toast.error("Malumot togriligiga ishonch hosil qiling")
@@ -78,7 +77,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
             <button
                 onClick={() => bookingfunction(value)}
                 disabled={booked}
-                className={` cursor-pointer border-[1px] border-gray-700 w-20 h-10 ${booked && "bg-gray-400 cursor-not-allowed text-white"
+                className={` cursor-pointer border text-gray-900  dark:text-white border-gray-700 w-20 h-10 ${booked && "bg-gray-400 cursor-not-allowed text-white"
                     }`}
                 data-value={value}
             >
@@ -87,13 +86,13 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         );
     }
     return (
-        <div className="flex md:w-[27%] max-w-[400px] w-full mx-auto border-gray-500 rounded-md border md:px-2 md:py-5 p-[5px] flex-col gap-4 text-gray-700">
+        <div className="flex md:w-[27%] max-w-[400px] w-full mx-auto border-gray-900  dark:border-gray-50 rounded-md border md:px-2 md:py-5 p-[5px] flex-col gap-4 text-gray-700">
             <div className="flex items-center justify-center gap-4">
-                <button className="border-2 rounded-lg " onClick={handlePreDayClick}>
+                <button className="border-2 rounded-lg active:scale-95 " onClick={handlePreDayClick}>
                     <KeyboardArrowLeft sx={{ rotate: "180" }} />
                 </button>
-                <h1 className="">{currentFormattedDate}</h1>
-                <button className="border-2 rounded-lg" onClick={handleNextDayClick}>
+                <h1 className=" text-gray-900 dark:text-white">{currentFormattedDate}</h1>
+                <button className="border-2 rounded-lg active:scale-95" onClick={handleNextDayClick}>
                     <KeyboardArrowRight />
                 </button>
             </div>
@@ -104,7 +103,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
             </div>
             <div>
                 <div
-                    className={` bg-black  bg-opacity-60 ${visible ? "fixed" : "hidden"
+                    className={` bg-black  z-10 bg-opacity-60 ${visible ? "fixed" : "hidden"
                         } top-0 left-0 w-full h-[100vh] flex items-center  justify-center`}
                 >
                     <div className="relative w-[80%] max-w-md max-h-full">

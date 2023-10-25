@@ -29,6 +29,7 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("likesmassiv")) || []
     : [],
   userdata: isSessionStorageAvailable() ? JSON.parse(sessionStorage.getItem('userdata')) :  false,
+  UserLoc: isSessionStorageAvailable() ? JSON.parse(sessionStorage.getItem('UserLoc')) :  false,
   search: "",
 };
 
@@ -38,7 +39,10 @@ const dataSlice = createSlice({
   reducers: {
     setUserData(state, action) {
       sessionStorage.setItem("userdata" , JSON.stringify(action.payload.data))
-
+      state.userdata = action.payload.data;
+    },
+    setUserLoc(state, action) {
+      sessionStorage.setItem("UserLoc" , JSON.stringify(action.payload))
       state.userdata = action.payload.data;
     },
     setToken(state, action) {
@@ -49,5 +53,5 @@ const dataSlice = createSlice({
   }
 });
 
-export const { setUserData ,setToken } = dataSlice.actions;
+export const { setUserData ,setToken  , setUserLoc} = dataSlice.actions;
 export default dataSlice.reducer;

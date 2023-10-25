@@ -3,8 +3,9 @@ const nextConfig = {
   crossOrigin : 'anonymous' ,
     images: {
         unoptimized: true ,
-        domains: ["localhost"], 
+        domains: ["192.168.100.22"], 
       },
+      // output: 'export',
 }
 
 module.exports = nextConfig

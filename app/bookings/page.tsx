@@ -1,15 +1,10 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { IconButton, Snackbar } from "@mui/material";
-import {
-  AccessTime,
-  Call,
-  Games,
-  Person,
-} from "@mui/icons-material";
+import { AccessTime, Call, Games, Person } from "@mui/icons-material";
 import { getData } from "@/utils/api";
 import { bookingFace } from "@/utils/types";
 import { prettyDateFormat, formatDateWithMonthNames } from "@/utils/utils";
@@ -17,10 +12,9 @@ import { Loader } from "@/components";
 
 function Bookings() {
   const router = useRouter();
-  const { token } = useSelector((state :any) => state.data); // Adjust the selector to match your state structure
+  const { token } = useSelector((state: any) => state.data); // Adjust the selector to match your state structure
   const [bookings, setBookings] = useState<bookingFace[]>([]);
   const [loader, setLoader] = useState(true);
-
 
   const getBookings = () => {
     setLoader(true);
@@ -30,18 +24,20 @@ function Bookings() {
         setLoader(false);
       })
       .catch((err) => {
-        toast.warning(err.response.data.message);
+        toast.warning(err.response.data.message , {style :{width :"250px"}});
         if (err.response.status === 401) {
           router.push("login");
         }
       });
   };
-
-  getBookings();
+  useEffect(() => {
+    getBookings();
+  }, []);
   const deleteGame = (id: string) => {
-    getData.delete(`bookings/one/${id}`, {
-      headers: { authorization: `Bearer ${token}` },
-    })
+    getData
+      .delete(`bookings/one/${id}`, {
+        headers: { authorization: `Bearer ${token}` },
+      })
       .then((res) => {
         toast.success(res.data.msg);
         getBookings();
@@ -59,8 +55,11 @@ function Bookings() {
         <Loader />
       ) : (
         bookings.map((el, i) => (
-          <div key={i} className="md:w-[80%] w-[90%] border  rounded-lg  p-2 mx-auto my-5 flex flex-col gap-2">
-            <div className="flex justify-between text-gray-600">
+          <div
+            key={i}
+            className="md:w-[80%] w-[90%] border dark:border-gray-500  rounded-lg  p-2 mx-auto my-5 flex flex-col gap-2"
+          >
+            <div className="flex justify-between text-gray-600 dark:text-white">
               <div title="O'yin vaqti">
                 <Games /> {formatDateWithMonthNames(el.from)}
               </div>{" "}
@@ -71,7 +70,7 @@ function Bookings() {
                 Cancel game
               </button>
             </div>
-            <div className="text-gray-700 flex justify-between">
+            <div className="text-gray-700 dark:text-gray-300 flex justify-between">
               <span>
                 {" "}
                 <Person /> {el.stadion?.owner?.name}
@@ -86,7 +85,7 @@ function Bookings() {
               </a>
             </div>
             <div className="flex gap-10 justify-between">
-              <div className="text-sm  flex items-center text-gray-500 gap-2">
+              <div className="text-sm  flex items-center text-gray-500  gap-2">
                 <AccessTime sx={{ color: "gray", width: "15px" }} />{" "}
                 {prettyDateFormat(`${el.created_at}`)}
               </div>

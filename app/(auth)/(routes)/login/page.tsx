@@ -22,7 +22,6 @@ const Login = () => {
     getData
       .post("/auth/login", data)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           dispatch(setToken({ token: res.data.token }));
           dispatch(setUserData({ data: res.data.data }));
@@ -41,14 +40,13 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(data);
   function googleAuth() {
     getData("/auth/google/login");
   }
   return (
-    <section className=" w-full h-[100vh] bg-white flex items-center justify-center flex-col">
+    <section className=" w-full h-[100vh]  flex bg-white dark:bg-gray-700 items-center justify-center flex-col">
       <div className="flex flex-col  w-full justify-center">
-        <h1 className="mx-auto  text-center  font-bold text-gray-900 md:text-4xl text-2xl">
+        <h1 className="mx-auto  text-center  font-bold text-gray-900 dark:text-white md:text-4xl text-2xl">
           Xush kelibsiz!
         </h1>
         <form
@@ -61,11 +59,11 @@ const Login = () => {
               type="mail"
               name="email"
               id="email"
-              className="block md:py-2.5 py-2 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
+              className="block md:py-2.5 py-2 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-100 dark:focus:border-gray-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
               placeholder=" "
               required
             />
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
               <Email /> Elektron pochtangizni kiriting!
             </label>
           </div>
