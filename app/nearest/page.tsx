@@ -17,7 +17,6 @@ function Page() {
   const [stadions, setStadions] = useState<StadionType[]>([]);
   const [loader, setLoader] = useState<Boolean>(true);
   const { UserLoc } = useSelector((state: any) => state.data);
-  console.log(UserLoc);
 
   useEffect(() => {
     getData(

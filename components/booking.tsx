@@ -86,7 +86,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         );
     }
     return (
-        <div className="flex md:w-[27%] max-w-[400px] w-full mx-auto border-gray-900  dark:border-gray-50 rounded-md border md:px-2 md:py-5 p-[5px] flex-col gap-4 text-gray-700">
+        <div className="flex md:w-[27%] max-w-[400px] w-full mx-auto m-4 border-gray-900  dark:border-gray-50 rounded-md border md:px-2 md:py-5 p-[5px] flex-col gap-4 text-gray-700">
             <div className="flex items-center justify-center gap-4">
                 <button className="border-2 rounded-lg active:scale-95 " onClick={handlePreDayClick}>
                     <KeyboardArrowLeft sx={{ rotate: "180" }} />

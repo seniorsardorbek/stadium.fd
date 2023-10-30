@@ -5,22 +5,29 @@ import {
   InfoOutlined,
   LocalActivityOutlined,
   NearMe,
-  SportsSoccerOutlined
+  SportsSoccerOutlined,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import io from "socket.io-client";
 import { ToastContainer } from "react-toastify";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [isHeaderShrunk, setIsHeaderShrunk] = useState(false);
-  const dispatch = useDispatch()
-  // const { userdata } = useSelector((state: any) => state.data);
+  const dispatch = useDispatch();
+  const { userdata } = useSelector((state: any) => state.data);
   useEffect(() => {
-    getLocation()
+    getLocation();
+    const socket = io("localhost:4000/events");
+    userdata && socket.on(`newMessage-${userdata.id}`, (message) => {
+      toast.success("Sizning stadioningiz bron qilindi");
+      console.log("Received notification:", message);
+    });
     const userPrefersDark = localStorage.getItem("darkMode");
     if (userPrefersDark === "true") {
       setDarkMode(true);
@@ -36,7 +43,6 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-
   }, []);
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -60,52 +66,26 @@ function Header() {
     setDarkMode(!darkMode);
   }
   function getLocation() {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        // Success: The user's location is available
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        console.log(longitude , latitude);
-        // Do something with the latitude and longitude
-      },
-      function (error) {
-        // Error: Handle any errors that occur
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            console.log(error);
-            
-            // The user denied the request for location.
-            break;
-          case error.POSITION_UNAVAILABLE:
-            console.log(error);
-            // The browser couldn't determine the user's location.
-            break;
-          case error.TIMEOUT:
-            console.log(error);
-            // The request to get user location timed out.
-            break;
-         
-        }
-      }
-    );
-    
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
         const newlat = position.coords.latitude;
         const newlng = position.coords.longitude;
-        console.log(`Latitude: ${newlat}, Longitude: ${newlng}`);
-     dispatch(setUserLoc({lng : position.coords.longitude , lat : position.coords.latitude}))
-
+        dispatch(
+          setUserLoc({
+            lng: position.coords.longitude,
+            lat: position.coords.latitude,
+          })
+        );
       });
     } else {
-      console.log('Geolocation is not supported by this browser.');
+      console.log("Geolocation is not supported by this browser.");
     }
   }
+
   return (
     <header
-      className={`transition-all fixed  w-full top-0 duration-1000 backdrop-blur-xl z-[1000] bg-white dark:bg-gray-900 border-gray-200 ${
-        isHeaderShrunk ? "  border-b-2 " : ""
+      className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50] bg-white dark:bg-gray-900 border-gray-200 ${
+        isHeaderShrunk ? " boxShadow " : ""
       }`}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
@@ -139,9 +119,9 @@ function Header() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 1 1114 0H3z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>
@@ -243,8 +223,10 @@ function Header() {
               href="/"
               className={`flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent   text-gray-900 dark:text-white rounded `}
             >
-                        <span className="visible md:hidden">
-              <HomeOutlined /></span> Bosh sahifa
+              <span className="visible md:hidden">
+                <HomeOutlined />
+              </span>{" "}
+              Bosh sahifa
             </Link>
           </li>
           <li onClick={toggleMenu}>

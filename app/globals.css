@@ -94,5 +94,23 @@ main {
   height: 70vh;
 }
 .dark{
-  background-color: rgb(17 24 39)
+  background-color: rgb(19, 27, 44)
+}
+/* This CSS class hides the scrollbar */
+.scrollbar-hidden {
+  /* For Webkit browsers (e.g., Chrome, Safari) */
+  scrollbar-width: none;
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* For Webkit browsers (e.g., Chrome, Safari) */
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 0.1rem;
+}
+
+/* For Firefox */
+.scrollbar-hidden::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }

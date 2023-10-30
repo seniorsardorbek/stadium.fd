@@ -6,19 +6,22 @@ export const SimpleMap = ({ lat, lng }: { lat: number; lng: number }) => (
     query={{
       suggest_apikey: config.mapKey,
       apikey: config.mapKey,
+      
     }}
+    
   >
     <div className="w-full h-full">
       <Map
         style={{
           width: "100%",
           minWidth: "220px",
-          height: "45vh",
-          minHeight: "440px",
+          height: "35vh",
+          minHeight: "40px",
         }}
-        defaultState={{ center: [lat, lng], zoom: 14 }}
+        
+        defaultState={{ center: [lat, lng], zoom: 14   }}
       >
-        <Placemark geometry={[lat, lng]} />
+        <Placemark  geometry={[lat, lng]} />
       </Map>
     </div>
   </YMaps>

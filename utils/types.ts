@@ -37,3 +37,17 @@ export interface bookingFace{
     confirmed : boolean
 
 }
+
+
+export interface  CommentFace{
+    _id : string
+    created_at :string
+    updated_at :string
+    comment: string
+    post:string
+    commentBy :{
+        _id : string
+        name: string
+        email:string
+    }
+}

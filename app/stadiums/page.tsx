@@ -12,7 +12,6 @@ const Stadions = () => {
     const [stadions, setStadions] = useState<StadionType[]>([]);
     const [loader, setLoader] = useState<Boolean>(true)
     const { UserLoc } = useSelector((state :any ) => state.data);
-    console.log(UserLoc);
 
       
     useEffect(() => {
@@ -36,7 +35,7 @@ const Stadions = () => {
     }, []);
     return (
         <main className="duration-100 max-w-screen-xl min-h-[65vh]   mx-auto p-2  transition-all mt-12 md:p-5 ">
-            <h1 className="mx-auto text-center my-3 text-gray-900 dark:text-white text-4xl   " >Hamma stadionlar</h1>
+            <h1 className="mx-auto text-center my-3 text-gray-900 dark:text-white md:text-4xl text-lg   " >Hamma stadionlar</h1>
             <ul className="flex flex-wrap  justify-center items-center " >
                  { loader? <Loader/> :  stadions.map((stadion: StadionType, index) => (
                     <Card stadion={stadion} key={stadion._id} />

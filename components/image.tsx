@@ -19,7 +19,7 @@ const CustomImage: FC<Props> = ({ url, alt, fill, extraClass, width, height }) =
 			{
 				fill ? <Image
 
-					src={'http://192.168.100.22:4000/' + url}
+					src={'http://localhost:4000/' + url}
 					alt={alt}
 					fill
 					className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${isLoading
@@ -30,7 +30,7 @@ const CustomImage: FC<Props> = ({ url, alt, fill, extraClass, width, height }) =
 					onLoadingComplete={() => setIsLoading(false)}
 				/> : <Image
 
-					src={'http://192.168.100.22:4000/' + url}
+					src={'http://localhost:4000/' + url}
 					alt={alt}
 					className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${isLoading
 						? 'scale-110 blur-2xl grayscale'

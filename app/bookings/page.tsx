@@ -47,7 +47,7 @@ function Bookings() {
   return (
     <main className="mt-16">
       <div>
-        <h3 className="text-2xl text-gray-900 font-semibold text-center p-3">
+        <h3 className="text-2xl text-gray-900 dark:text-white font-semibold text-center p-3">
           Your bookings!
         </h3>
       </div>
@@ -59,7 +59,7 @@ function Bookings() {
             key={i}
             className="md:w-[80%] w-[90%] border dark:border-gray-500  rounded-lg  p-2 mx-auto my-5 flex flex-col gap-2"
           >
-            <div className="flex justify-between text-gray-600 dark:text-white">
+            <div className="flex justify-between text-gray-600 dark:text-gray-300">
               <div title="O'yin vaqti">
                 <Games /> {formatDateWithMonthNames(el.from)}
               </div>{" "}
