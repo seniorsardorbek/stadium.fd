@@ -54,3 +54,24 @@ export function formatDateWithMonthNames(timestamp :number) {
   return formattedDate;
 }
 
+export function haversineDistance(lat1 :number, lon1 :number, lat2 :number, lon2 :number) {
+  // Radius of the Earth in kilometers
+  const earthRadius = 6371; // You can use 3959 for miles
+
+  // Convert latitude and longitude from degrees to radians
+  const lat1Rad = (Math.PI * lat1) / 180;
+  const lon1Rad = (Math.PI * lon1) / 180;
+  const lat2Rad = (Math.PI * lat2) / 180;
+  const lon2Rad = (Math.PI * lon2) / 180;
+
+  // Haversine formula
+  const dlat = lat2Rad - lat1Rad;
+  const dlon = lon2Rad - lon1Rad;
+  const a =
+    Math.sin(dlat / 2) ** 2 +
+    Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dlon / 2) ** 2;
+  const c = 2 * Math.asin(Math.sqrt(a));
+  const distance = earthRadius * c;
+  return  distance.toFixed(1)
+   
+}

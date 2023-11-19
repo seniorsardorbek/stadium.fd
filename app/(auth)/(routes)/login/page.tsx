@@ -82,9 +82,9 @@ const Login = () => {
               <Key /> Parolingizni kiriting
             </label>
             <span className="text-xs text-center block text-gray-400 mt-3">
-              Agar sizda hisob mavjud bolmasa{" "}
+              Agar sizda hisob mavjud bo&apos;lmasa{" "}
               <Link className="text-gray-900  font-semibold" href={"/register"}>
-                royxatdan oting!
+                ro&apos;yxatdan oting!
               </Link>
             </span>
           </div>

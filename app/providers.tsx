@@ -5,7 +5,8 @@ import { store } from "../utils/redux/store/store";
 import { Header } from "@/components";
 import Footer from "@/components/footer";
 import { usePathname } from "next/navigation";
-
+import 'swiper/css';
+import * as reactToastify from 'react-toastify';
 interface ProvidersProps {
   children: ReactNode;
 }
@@ -13,7 +14,16 @@ interface ProvidersProps {
 function Providers({ children }: ProvidersProps) {
   const path = usePathname();
   const shouldShowHeaderAndFooter = path !== '/login' && path !=='/register';
-  return <Provider store={store}>{shouldShowHeaderAndFooter && <Header />}{children} {shouldShowHeaderAndFooter && <Footer />}</Provider>;
+  return <Provider store={store}>{shouldShowHeaderAndFooter && <Header />}{children} {shouldShowHeaderAndFooter && <Footer />}<reactToastify.ToastContainer
+    autoClose={3000}
+     position={"top-right"}
+    newestOnTop={true}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+  /></Provider>;
 }
 
 export default Providers;

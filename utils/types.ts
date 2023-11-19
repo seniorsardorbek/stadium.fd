@@ -51,3 +51,21 @@ export interface  CommentFace{
         email:string
     }
 }
+export interface userFace {
+    id : string
+    name: string
+    email : string
+    avatarka : string
+}
+ export interface eventsFace{
+    _id: string
+    toMessage: string
+    message :string
+    created_at :string
+    updated_at:string
+    viewed: boolean
+    eventBy:  {
+        _id : string
+        name :string
+    }
+ }

@@ -3,19 +3,30 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { IconButton, Snackbar } from "@mui/material";
-import { AccessTime, Call, Games, Person } from "@mui/icons-material";
+import {
+  AccessTime,
+  Call,
+  CancelRounded,
+  Games,
+  LocationOn,
+  Person,
+} from "@mui/icons-material";
 import { getData } from "@/utils/api";
 import { bookingFace } from "@/utils/types";
 import { prettyDateFormat, formatDateWithMonthNames } from "@/utils/utils";
 import { Loader } from "@/components";
+import Link from "next/link";
+import NoToken from "@/components/noToken";
 
 function Bookings() {
   const router = useRouter();
-  const { token } = useSelector((state: any) => state.data); // Adjust the selector to match your state structure
+  const { token } = useSelector((state: any) => state.data);
+  if (!token) {
+   return NoToken()
+  }
   const [bookings, setBookings] = useState<bookingFace[]>([]);
   const [loader, setLoader] = useState(true);
-
+  console.log(token);
   const getBookings = () => {
     setLoader(true);
     getData(`bookings`, { headers: { authorization: `Bearer ${token}` } })
@@ -24,7 +35,7 @@ function Bookings() {
         setLoader(false);
       })
       .catch((err) => {
-        toast.warning(err.response.data.message , {style :{width :"250px"}});
+        toast.warning(err.response.data.message);
         if (err.response.status === 401) {
           router.push("login");
         }
@@ -32,7 +43,7 @@ function Bookings() {
   };
   useEffect(() => {
     getBookings();
-  }, []);
+  }, [token]);
   const deleteGame = (id: string) => {
     getData
       .delete(`bookings/one/${id}`, {
@@ -57,17 +68,19 @@ function Bookings() {
         bookings.map((el, i) => (
           <div
             key={i}
-            className="md:w-[80%] w-[90%] border dark:border-gray-500  rounded-lg  p-2 mx-auto my-5 flex flex-col gap-2"
+            className="md:w-[500px] w-[90%] border dark:border-gray-500  rounded-lg  p-2 mx-auto my-5 flex flex-col gap-2"
           >
-            <div className="flex justify-between text-gray-600 dark:text-gray-300">
-              <div title="O'yin vaqti">
-                <Games /> {formatDateWithMonthNames(el.from)}
-              </div>{" "}
-              <button
-                onClick={() => deleteGame(el._id)}
-                className="p-1   border rounded-lg  active:opacity-75 md:text-sm text-xs"
-              >
-                Cancel game
+            <div className="flex justify-between text-gray-600 dark:text-gray-300 tex-sm ">
+              <div title="O'yin vaqti va manzili" className="text-sm w-[70%]">
+                <Games sx={{ width: "18px" }} />{" "}
+                {formatDateWithMonthNames(el.from)}
+                <Link href={`stadium/${el.stadion._id}`}>
+                  <LocationOn sx={{ width: "18px" }} /> {el.stadion.destination}
+                </Link>
+              </div>
+              <div className="flex text-xs"></div>
+              <button onClick={() => deleteGame(el._id)}>
+                <CancelRounded />
               </button>
             </div>
             <div className="text-gray-700 dark:text-gray-300 flex justify-between">

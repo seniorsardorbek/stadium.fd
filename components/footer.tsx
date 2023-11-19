@@ -4,7 +4,7 @@ import React from 'react'
 function Footer() {
     return (
 
-        <footer className="bg-white  shadow dark:bg-gray-900 z-50 border-t ">
+        <footer className="bg-white  shadow dark:bg-gray-900 z-40 border-t ">
             <div className="w-full  mx-auto p-2 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <Link href="/" className="flex items-center">

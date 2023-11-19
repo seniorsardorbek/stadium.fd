@@ -2,32 +2,58 @@
 import { setUserLoc } from "@/utils/redux/store/dataSlice";
 import {
   HomeOutlined,
-  InfoOutlined,
   LocalActivityOutlined,
   NearMe,
+  NotificationImportant,
+  Person,
+  Settings,
   SportsSoccerOutlined,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import addNote from "react-push-notification";
 import io from "socket.io-client";
-import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import image from "../statics/1111.png";
+import { userFace } from "../utils/types";
+import { getData } from "@/utils/api";
+import { toast } from "react-toastify";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [isHeaderShrunk, setIsHeaderShrunk] = useState(false);
+  const [userdata, setUserData] = useState<userFace>();
   const dispatch = useDispatch();
-  const { userdata } = useSelector((state: any) => state.data);
+  const router = useRouter();
+  const { token } = useSelector((state: any) => state.data);
+  useEffect(() => {}, []);
+  const socket = io("localhost:4000/events");
+
+  userdata &&
+    socket.on(`newMessage-${userdata.id}`, (message) => {
+      addNote({
+        title: message,
+        icon : "https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no" ,
+        message: message,
+        duration: 4000,
+        native: true,
+        onClick: () => {
+          router.push("notifications");
+        },
+      });
+    });
+
   useEffect(() => {
     getLocation();
-    const socket = io("localhost:4000/events");
-    userdata && socket.on(`newMessage-${userdata.id}`, (message) => {
-      toast.success("Sizning stadioningiz bron qilindi");
-      console.log("Received notification:", message);
-    });
+ token &&   getData("users/me", { headers: { authorization: `Bearer ${token}` } }).then(
+      (res) => {
+        setUserData(res.data.data);
+      }
+    );
     const userPrefersDark = localStorage.getItem("darkMode");
     if (userPrefersDark === "true") {
       setDarkMode(true);
@@ -43,7 +69,8 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [token ]);
+
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
     if (darkMode) {
@@ -62,14 +89,14 @@ function Header() {
     setIsMenuOpen(false);
     setIsDropdownOpen(!isDropdownOpen);
   };
+
   function toggleDarkMode() {
     setDarkMode(!darkMode);
   }
+
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-        const newlat = position.coords.latitude;
-        const newlng = position.coords.longitude;
         dispatch(
           setUserLoc({
             lng: position.coords.longitude,
@@ -78,10 +105,9 @@ function Header() {
         );
       });
     } else {
-      console.log("Geolocation is not supported by this browser.");
+      toast.error("Geolocation is not supported by this browser.");
     }
   }
-
   return (
     <header
       className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50] bg-white dark:bg-gray-900 border-gray-200 ${
@@ -89,10 +115,8 @@ function Header() {
       }`}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-        <Link href="/" className="flex items-center">
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white text-gray-900  ">
-            myArena.uz
-          </span>
+        <Link href="/" className="flex items-center w-[140px] md:w-[200px]">
+          <Image src={image} alt="Logo" width={200} />
         </Link>
         <div className="flex items-center md:order-2">
           <div
@@ -112,20 +136,30 @@ function Header() {
           >
             <span className="sr-only">Open user menu</span>
             <div className="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-white border-gray-900 border rounded-full dark:bg-white">
-              <svg
-                className="  object-cover mb-0  w-8 h-8 text-gray-600 "
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 1 1114 0H3z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+              {userdata?.avatarka ? (
+                <Image
+                  className="object-cover"
+                  src={"http://localhost:4000/" + userdata?.avatarka}
+                  alt="Profile picture"
+                  fill
+                />
+              ) : (
+                <svg
+                  className="  object-cover mb-0  w-8 h-8 text-gray-600 "
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 1 1114 0H3z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              )}
             </div>
           </button>
+         
           <div
             className={` absolute top-10 border-[1px] dark:border-none border-gray-900 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
               isDropdownOpen ? "" : "hidden"
@@ -133,12 +167,12 @@ function Header() {
             id="user-dropdown"
           >
             <div className="px-4 py-3 ">
-              {/* <span className="block text-sm text-white-900 dark:text-white">
+              <span className="block text-sm text-white-900 dark:text-white">
                 {userdata?.name || "You not loging"}
               </span>
               <span className="block text-sm text-white-900 dark:text-white">
                 {userdata?.email || "You not loging"}
-              </span> */}
+              </span>
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
@@ -146,7 +180,10 @@ function Header() {
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
                 >
-                  Dashboard
+                  <span className="visible md:hidden">
+                    <Person />
+                  </span>{" "}
+                  Profile
                 </Link>
               </li>
               <li>
@@ -154,23 +191,39 @@ function Header() {
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
                 >
-                  Settings
+                  <span className="visible md:hidden">
+                    <Settings />
+                  </span>{" "}
+                  Sozlamalar
+                </Link>
+              </li>
+              <li onClick={toggleDropdown}>
+                <Link
+                  href="/notifications"
+                  className={`block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white`}
+                >
+                  <span className="visible md:hidden">
+                    <NotificationImportant />
+                  </span>{" "}
+                  Bildirishnomalar
                 </Link>
               </li>
               <li>
-                {/* {
-                  userdata ? <Link
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
+                {userdata ? (
+                  <Link
+                    href="/signout" // Update this to the appropriate sign-out route
+                    className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
                   >
-                    Sign out
-                  </Link> : <Link
+                    Chiqish
+                  </Link>
+                ) : (
+                  <Link
                     href="/login"
-                    className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
                   >
                     Kirish
                   </Link>
-                } */}
+                )}
               </li>
             </ul>
           </div>
@@ -262,30 +315,9 @@ function Header() {
               Atrofdagilar
             </Link>
           </li>
-          <li onClick={toggleMenu}>
-            <Link
-              href="#"
-              className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
-            >
-              <span className="visible md:hidden">
-                <InfoOutlined />
-              </span>{" "}
-              Biz haqimizda
-            </Link>
-          </li>
         </ul>
       </div>
-      <ToastContainer
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme={darkMode ? "dark" : "light"}
-      />
+      <div  onClick={toggleDropdown} className={ ` fixed  top-0 left-0 w-full h-[100vh] bg-black bg-opacity-60 ${isDropdownOpen ? "" : "hidden" }`} ></div>
     </header>
   );
 }

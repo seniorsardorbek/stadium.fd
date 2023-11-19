@@ -96,6 +96,10 @@ main {
 .dark{
   background-color: rgb(19, 27, 44)
 }
+.dark .Toastify__toast-theme--light {
+  background-color: rgb(19, 27, 44)!important ;
+
+} 
 /* This CSS class hides the scrollbar */
 .scrollbar-hidden {
   /* For Webkit browsers (e.g., Chrome, Safari) */
@@ -110,7 +114,7 @@ main {
   width: 0.1rem;
 }
 
-/* For Firefox */
+
 .scrollbar-hidden::-webkit-scrollbar-thumb {
   background-color: transparent;
 }

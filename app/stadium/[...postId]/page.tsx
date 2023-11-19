@@ -9,11 +9,10 @@ import { Carousel } from "react-responsive-carousel";
 import { Call, Size } from "../../../public/icons";
 import ReactStars from "react-stars";
 import { getData } from "@/utils/api";
-import { Comment, CommentOutlined, Person } from "@mui/icons-material";
+import {  CommentOutlined, Person } from "@mui/icons-material";
 import { SimpleMap } from "@/components/map";
 import Comments from "@/components/comments";
-
-function Detailed({ params: { postId } }: { params: { postId: string } }) {
+function Detailed({ params: { postId } }: { params: { postId: string } })   {
   const [stadion, setStadions] = useState<StadionType>();
   const [loader, setLoader] = useState<boolean>(true);
   const [openComments, setOpenComments] = useState<boolean>(false);
@@ -43,29 +42,28 @@ function Detailed({ params: { postId } }: { params: { postId: string } }) {
 
   return (
     <main
-      className={`flex flex-wrap mt-16 items-center justify-between mx-auto`}
+      className={`flex flex-wrap mt-16 items-center justify-between mx-auto `}
     >
       {loader ? (
         <Loader />
       ) : (
-        <section className="w-full">
-          <Carousel
-            autoPlay
-            swipeable={true}
-            emulateTouch
-            showThumbs={false}
-            showArrows={false}
-            width={"100%"}
-          >
-            {stadion?.images.map((el, i) => (
-              <div
-                key={i}
-                className=" relative md:h-[650px]   h-56  w-full flex  "
-              >
-                <CustomImage fill url={el} alt="zor" />
-              </div>
-            ))}
-          </Carousel>
+        <section className=" w-full relative ">
+<Carousel
+  swipeable={true}
+  centerMode={true} // Enable center mode
+  autoPlay={true}
+  infiniteLoop={true}
+  useKeyboardArrows={true}
+  stopOnHover={true}
+  emulateTouch={true}
+  centerSlidePercentage={90} // Adjust the percentage of the slide that is visible in the center
+>
+  {stadion?.images.map((el, i) => (
+    <div key={i} className="relative md:h-[650px] h-44 w-full">
+      <CustomImage fill url={el} alt="zor" />
+    </div>
+  ))}
+</Carousel>
           <div className=" m-2 text-gray-700 dark:text-white flex flex-col gap-1 ">
             <div className="flex flex-col dark:bg-gray-700 bg-blue-50 p-4 m-2 rounded-xl text-gray-700 dark:text-white text-sm md:text-base">
               <p>
@@ -104,7 +102,7 @@ function Detailed({ params: { postId } }: { params: { postId: string } }) {
               </div>
             </div>
             <div className="flex justify-around flex-col md:flex-row  gap-1 md:gap-0  items-start">
-              <div className="flex flex-col  gap-2 md:w-2/3 w-full">
+              <div className="flex flex-col  gap-2 md:w-2/3 w-full md:h-auto">
                 <p className="text-sm p-4 m-2 dark:bg-gray-700 bg-blue-50  h-auto  rounded-xl   ">
                   {stadion?.description}
                 </p>

@@ -33,8 +33,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "build/types/**/*.ts"
-, "app/redux/store/dataSlice.js"  ],
+    "build/types/**/*.ts",
+    "app/redux/store/dataSlice.js"
+  ],
   "exclude": [
     "node_modules"
   ]

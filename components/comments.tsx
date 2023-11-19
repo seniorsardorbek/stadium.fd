@@ -8,6 +8,7 @@ import { Send } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import NoToken from "./noToken";
 
 function Comments({
   stadiumId,
@@ -22,6 +23,9 @@ function Comments({
   const [data, setData] = useState<{ comment: string }>({ comment: "" });
   const [loading, setLoding] = useState<boolean>(false);
   const { token } = useSelector((state: any) => state.data);
+  if (!token) {
+    return NoToken()
+   }
   const router = useRouter();
   function getComments() {
     setLoding(true);
@@ -80,7 +84,7 @@ function Comments({
           <div className=" flex flex-col inset-0 scrollbar-hidden overflow-y-scroll ">
             {comments.map((el, i) => {
               return (
-                <div className="flex  gap-2 p-3 rounded-2xl my-1 dark:text-white text-gray-900  mx-auto w-[90%]">
+                <div key={i} className="flex  gap-2 p-3 rounded-2xl my-1 dark:text-white text-gray-900  mx-auto w-[90%]">
                   <Avatar sx={{width : '30px' , height:"30px"}} />{" "}
                     {
                       <div className="flex  flex-col w-[90%]">

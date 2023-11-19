@@ -70,14 +70,14 @@ const Bookings: FC<Props> = ({ stadionId }) => {
             });
     }
     function Hours({ i, value }: hoursProps) {
-        const booked: boolean = bookings.some(
+        const booked: boolean  = bookings.some(
             (bookingDetail) => bookingDetail.from === value
         );
         return (
             <button
                 onClick={() => bookingfunction(value)}
                 disabled={booked}
-                className={` cursor-pointer border text-gray-900  dark:text-white border-gray-700 w-20 h-10 ${booked && "bg-gray-400 cursor-not-allowed text-white"
+                className={` cursor-pointer border text-gray-900 hover:bg-opacity-25  dark:text-white border-gray-900 w-20 h-10 ${booked && "bg-gray-400 cursor-not-allowed text-white"
                     }`}
                 data-value={value}
             >
@@ -86,13 +86,13 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         );
     }
     return (
-        <div className="flex md:w-[27%] max-w-[400px] w-full mx-auto m-4 border-gray-900  dark:border-gray-50 rounded-md border md:px-2 md:py-5 p-[5px] flex-col gap-4 text-gray-700">
+        <div className="flex gap-3 dark:bg-gray-700 bg-blue-50 m-2 p-2  rounded-xl flex-col text-gray-700">
             <div className="flex items-center justify-center gap-4">
-                <button className="border-2 rounded-lg active:scale-95 " onClick={handlePreDayClick}>
+                <button className="border-2  dark:text-white rounded-lg active:scale-95 " onClick={handlePreDayClick}>
                     <KeyboardArrowLeft sx={{ rotate: "180" }} />
                 </button>
                 <h1 className=" text-gray-900 dark:text-white">{currentFormattedDate}</h1>
-                <button className="border-2 rounded-lg active:scale-95" onClick={handleNextDayClick}>
+                <button className="border-2  dark:text-white rounded-lg active:scale-95" onClick={handleNextDayClick}>
                     <KeyboardArrowRight />
                 </button>
             </div>
@@ -121,9 +121,9 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                                 >
                                     <path
                                         stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
                                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                                     />
                                 </svg>
@@ -131,7 +131,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                             </button>
                             <div className="px-6 py-6 lg:px-8 ">
                                 <h3 className="mb-4 md:text-xl text-lg text-center  font-medium text-gray-700 dark:text-white">
-                                    Fill the form to booking stadium
+                                   So&apos; yuborish uchun formani to&apos;ldiring
                                 </h3>
                                 <form
                                     onSubmit={(e) => Bookingsubmit(e)}
@@ -143,14 +143,14 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                                             htmlFor="n"
                                             className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
                                         >
-                                           <Call/> Enter your Phone number
+                                           <Call/> Bog&apos;lanish uchun mobil raqam qoldiring (majburiy)
                                         </label>
                                         <input
                                             onChange={handlechange}
                                             type="number"
                                             name="callNumber"
                                             id="n"
-                                            placeholder="913332003"
+                                            placeholder="+998913332003"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                             required
                                         />
@@ -159,7 +159,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                                         type="submit"
                                         className="w-full  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                                     >
-                                        {loader ? <MiniLoader /> : "Submit"}
+                                        {loader ? <MiniLoader /> : "Tasdiqlash"}
                                     </button>
                                 </form>
                             </div>

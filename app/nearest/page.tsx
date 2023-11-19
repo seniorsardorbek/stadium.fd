@@ -1,14 +1,14 @@
 "use client";
+import { Loader } from "@/components";
 import { getData } from "@/utils/api";
 import { StadionType } from "@/utils/types";
 import {
   Map,
-  ObjectManager,
+
   Placemark,
   YMaps,
   Clusterer,
 } from "@pbe/react-yandex-maps";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -48,6 +48,9 @@ function Page() {
   };
   return (
     <main className="mt-16">
+      {
+        loader ? <Loader/> :
+     
       <YMaps
         query={{
           suggest_apikey :'d6731aa6-00f1-4319-9583-87938fbc50f9',
@@ -77,6 +80,7 @@ function Page() {
           </Clusterer>
         </Map>
       </YMaps>
+       }
     </main>
   );
 }

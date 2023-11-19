@@ -4,16 +4,19 @@ import CustomImage from './image';
 import Link from 'next/link';
 import ReactStars from 'react-stars';
 import { StadionType } from '../utils/types';
+import { haversineDistance } from '@/utils/utils';
+import { useSelector } from 'react-redux';
 
 const Card: FC<{ stadion: StadionType }> = ({ stadion }) => {
+    const { UserLoc } = useSelector((state :any ) => state.data);
     return (
-        <li  className="bg-white    boxShadow cursor-pointer  h-48  relative rounded-lg  w-72  m-2  " >
+        <Link href={`stadium/${stadion._id}`}  className="bg-white    boxShadow cursor-pointer  h-48  relative rounded-lg  w-72  m-2  " >
             <Carousel
                 autoPlay
                 swipeable={false}
                 showThumbs={false}
                 showIndicators={false}
-                showArrows={true} width={"100%"}  >
+                showArrows={false} width={"100%"}  >
                 {
                     stadion.images.map((el , i) => (
                         <div key={el} className=" relative h-48 w-full "  >
@@ -22,7 +25,12 @@ const Card: FC<{ stadion: StadionType }> = ({ stadion }) => {
                     ))
                 }
             </Carousel>
-            <Link href={`stadium/${stadion._id}`} className="flex items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -">
+          {  UserLoc && <span className='text-[10px] text-white bg-black font-semibold absolute top-2 left-2' >
+                {
+                    haversineDistance(stadion.lat , stadion.lng , UserLoc.lat , UserLoc.lng  )
+                }km
+            </span>}
+            <div  className="flex items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -">
                 <p className="w-[70%]" >
                     {
                         stadion.destination.substring(0,50)
@@ -38,8 +46,8 @@ const Card: FC<{ stadion: StadionType }> = ({ stadion }) => {
                         edit={false}
                     />
                 </div>
-            </Link>
-        </li>
+            </div>
+        </Link>
     )
 }
 

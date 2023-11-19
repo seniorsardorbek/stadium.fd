@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import Cookies from 'js-cookie';
 const isLocalStorageAvailable = () => {
   try {
     const testKey = "__test__";
@@ -22,14 +22,16 @@ const isSessionStorageAvailable = () => {
 };
 
 const initialState = {
-  token: isLocalStorageAvailable()
-    ? localStorage.getItem("token") 
-    : false,
+  token:  Cookies.get('passport')  || false,
   likemassiv: isLocalStorageAvailable()
     ? JSON.parse(localStorage.getItem("likesmassiv")) || []
     : [],
-  userdata: isSessionStorageAvailable() ? JSON.parse(sessionStorage.getItem('userdata')) :  false,
-  UserLoc: isSessionStorageAvailable() ? JSON.parse(sessionStorage.getItem('UserLoc')) :  false,
+  userdata : isLocalStorageAvailable()
+    ? JSON.parse(localStorage.getItem("userdata"))
+    : false,
+  UserLoc: isSessionStorageAvailable()
+    ? JSON.parse(sessionStorage.getItem("UserLoc"))
+    : false,
   search: "",
 };
 
@@ -38,20 +40,24 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     setUserData(state, action) {
-      sessionStorage.setItem("userdata" , JSON.stringify(action.payload.data))
+      localStorage.setItem("userdata", JSON.stringify(action.payload.data));
       state.userdata = action.payload.data;
     },
     setUserLoc(state, action) {
-      sessionStorage.setItem("UserLoc" , JSON.stringify(action.payload))
+      sessionStorage.setItem("UserLoc", JSON.stringify(action.payload));
       state.userdata = action.payload.data;
     },
     setToken(state, action) {
-      isLocalStorageAvailable() &&  localStorage.setItem('token' , action.payload.token)  
+      const expirationTime = 7 * 24 * 60 * 60 * 1000;
+      const expirationDate = new Date(Date.now() + expirationTime);
+
+      document.cookie = `passport=${
+        action.payload.token
+      }; expires=${expirationDate.toUTCString()}; path=/`;
       state.token = action.payload.token;
     },
-     
-  }
+  },
 });
 
-export const { setUserData ,setToken  , setUserLoc} = dataSlice.actions;
+export const { setUserData, setToken, setUserLoc } = dataSlice.actions;
 export default dataSlice.reducer;
