@@ -31,7 +31,7 @@ function Header() {
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
   useEffect(() => {}, []);
-  const socket = io("192.168.179.154:4000/events");
+  const socket = io("localhost:4000/events");
 
   userdata &&
     socket.on(`newMessage-${userdata.id}`, (message) => {
@@ -141,7 +141,7 @@ console.log(userdata);
               {userdata?.avatarka ? (
                 <Image
                   className="object-cover rounded-full w-9 h-9"
-                  src={"http://192.168.179.154:4000/" + userdata?.avatarka}
+                  src={"http://localhost:4000/" + userdata?.avatarka}
                   alt="Profile picture"
                   width={35}
                   height={35}

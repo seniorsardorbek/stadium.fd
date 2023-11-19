@@ -1,5 +1,5 @@
 import axios from "axios"
 export const getData = axios.create({
-  baseURL: `http://192.168.179.154:4000/api`,
+  baseURL: `http://localhost:4000/api`,
   headers: { "Content-type": "application/json", }
 });
