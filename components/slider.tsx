@@ -61,7 +61,7 @@ function SliderImage({ width, height, alt, imageIndex, url, fill }: { width?: nu
     return (
         <> {
             fill ? <Image
-                src={'http://localhost:4000/' + url}
+                src={'http://192.168.179.154:4000/' + url}
                 alt={alt}
                 className={`rounded-lg  transition-all    duration-300 ease-in-out group-hover:opacity-75  ${isLoading
                     ? 'scale-110 blur-2xl grayscale'
@@ -71,7 +71,7 @@ function SliderImage({ width, height, alt, imageIndex, url, fill }: { width?: nu
                 style={{ translate: `${-100 * imageIndex}%` }}
                 onLoadingComplete={() => setIsLoading(false)}
             /> : <Image
-                src={'http://localhost:4000/' + url}
+                src={'http://192.168.179.154:4000/' + url}
                 alt={alt}
                 className={`rounded-lg  transition-all    duration-300 ease-in-out group-hover:opacity-75  ${isLoading
                     ? 'scale-110 blur-2xl grayscale'

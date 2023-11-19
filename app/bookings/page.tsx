@@ -21,38 +21,42 @@ import NoToken from "@/components/noToken";
 function Bookings() {
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
-  if (!token) {
-   return NoToken()
-  }
   const [bookings, setBookings] = useState<bookingFace[]>([]);
-  const [loader, setLoader] = useState(true);
-  console.log(token);
+  const [loading, setLoading] = useState(true);
+  if(!token){
+    setTimeout(() => {
+      return <NoToken/>
+    }, 200);
+  }
+  useEffect(() => {
+    if (token && loading) {
+      getBookings();
+    }
+  }, [token, loading]);
+
   const getBookings = () => {
-    setLoader(true);
+    setLoading(true);
     getData(`bookings`, { headers: { authorization: `Bearer ${token}` } })
       .then((res) => {
         setBookings(res.data);
-        setLoader(false);
+        setLoading(false);
       })
       .catch((err) => {
         toast.warning(err.response.data.message);
         if (err.response.status === 401) {
-          router.push("login");
+          router.push('login');
         }
       });
   };
-  useEffect(() => {
-    getBookings();
-  }, [token]);
+
   const deleteGame = (id: string) => {
-    getData
-      .delete(`bookings/one/${id}`, {
-        headers: { authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        toast.success(res.data.msg);
-        getBookings();
-      });
+    getData.delete(`bookings/one/${id}`, {
+      headers: { authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      toast.success(res.data.msg);
+      getBookings();
+    });
   };
 
   return (
@@ -62,7 +66,7 @@ function Bookings() {
           Your bookings!
         </h3>
       </div>
-      {loader ? (
+      {loading ? (
         <Loader />
       ) : (
         bookings.map((el, i) => (

@@ -1,13 +1,15 @@
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 export const SimpleMap = ({ lat, lng }: { lat: number; lng: number })  => {
  return <YMaps 
+ 
     query={{
       suggest_apikey: "d6731aa6-00f1-4319-9583-87938fbc50f9",
       apikey: "d6731aa6-00f1-4319-9583-87938fbc50f9",
       
     }}
+
   >
-    <div className="w-full h-full">
+    <main className="w-full h-full">
       <Map
         style={{
           width: "100%",
@@ -19,5 +21,5 @@ export const SimpleMap = ({ lat, lng }: { lat: number; lng: number })  => {
       >
         <Placemark  geometry={[lat, lng]} />
       </Map>
-    </div>
+    </main>
   </YMaps>;}

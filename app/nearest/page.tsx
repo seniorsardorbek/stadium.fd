@@ -47,7 +47,7 @@ function Page() {
     history.push(`stadium/${_id}`);
   };
   return (
-    <main className="mt-16">
+    <main className="mt-16 relative">
       {
         loader ? <Loader/> :
      
@@ -58,7 +58,7 @@ function Page() {
         }}
       >
         <Map
-          style={{ width: "100%", minWidth: "220px", height: "70vh" }}
+        className="w-full  h-[77vh]  absolute "
           defaultState={{
             center: [41.311081, 69.240562],
             zoom: 12,

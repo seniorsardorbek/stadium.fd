@@ -31,7 +31,7 @@ function Header() {
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
   useEffect(() => {}, []);
-  const socket = io("localhost:4000/events");
+  const socket = io("192.168.179.154:4000/events");
 
   userdata &&
     socket.on(`newMessage-${userdata.id}`, (message) => {
@@ -46,14 +46,16 @@ function Header() {
         },
       });
     });
-
+console.log(userdata);
   useEffect(() => {
     getLocation();
  token &&   getData("users/me", { headers: { authorization: `Bearer ${token}` } }).then(
       (res) => {
         setUserData(res.data.data);
       }
-    );
+    ).catch((err) =>{
+      toast.error(err.message)
+    });
     const userPrefersDark = localStorage.getItem("darkMode");
     if (userPrefersDark === "true") {
       setDarkMode(true);
@@ -110,7 +112,7 @@ function Header() {
   }
   return (
     <header
-      className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50] bg-white dark:bg-gray-900 border-gray-200 ${
+      className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50] bg-white dark:bg-gray-950 border-gray-200 ${
         isHeaderShrunk ? " boxShadow " : ""
       }`}
     >
@@ -135,13 +137,14 @@ function Header() {
             onClick={toggleDropdown}
           >
             <span className="sr-only">Open user menu</span>
-            <div className="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-white border-gray-900 border rounded-full dark:bg-white">
+            <div className="relative bg-gradient-to-b hover:bg-gradient-r-to  from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% inline-flex items-center justify-center w-10 h-10 overflow-hidden    rounded-full ">
               {userdata?.avatarka ? (
                 <Image
-                  className="object-cover"
-                  src={"http://localhost:4000/" + userdata?.avatarka}
+                  className="object-cover rounded-full w-9 h-9"
+                  src={"http://192.168.179.154:4000/" + userdata?.avatarka}
                   alt="Profile picture"
-                  fill
+                  width={35}
+                  height={35}
                 />
               ) : (
                 <svg

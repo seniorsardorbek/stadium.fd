@@ -19,50 +19,46 @@ import NoToken from "@/components/noToken";
 function Notifications() {
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
-  const [loader, setLoader] = useState(true);
-
-
-  if (!token) {
-    return NoToken()
-   }
+  const [loading, setLoading] = useState<boolean>(true);
   const [events, setEvents] = useState<eventsFace[]>([]);
+if(!token){
+  setTimeout(() => {
+    return <NoToken/>
+  }, 200);
+}
+  useEffect(() => {
+    if (loading && token) {
+      getEvents();
+    }
+  }, [loading, token]);
 
   const getEvents = () => {
-    setLoader(true);
+    setLoading(true);
     getData(`eventss`, { headers: { authorization: `Bearer ${token}` } })
       .then((res) => {
         setEvents(res.data);
-        setLoader(false);
+        setLoading(false);
       })
       .catch((err) => {
-        toast.warning(err.response.data.message, {
-          style: { width: "250px" },
-        });
+        setLoading(false);
+        toast.warning(err.response.data.message);
         if (err.response.status === 401) {
-          router.push("login");
+          router.push('login');
         }
       });
   };
 
   const markAsRead = (id: string) => {
-    getData
-      .put(
-        `events/${id}`,
-        {},
-        { headers: { authorization: `Bearer ${token}` } }
-      )
+    getData.put(`events/${id}`, {}, { headers: { authorization: `Bearer ${token}` } })
       .then(() => {
         getEvents();
       });
   };
 
-  useEffect(() => {
-    getEvents();
-  }, []);
 
   return (
     <main className="mt-16">
-      {loader ? (
+      {loading ? (
         <Loader />
       ) : (
         events?.map((el, i) => (

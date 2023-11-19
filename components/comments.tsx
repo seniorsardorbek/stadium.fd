@@ -20,47 +20,58 @@ function Comments({
   openComments: boolean;
 }) {
   const [comments, setComments] = useState<CommentFace[]>([]);
-  const [data, setData] = useState<{ comment: string }>({ comment: "" });
-  const [loading, setLoding] = useState<boolean>(false);
+  const [data, setData] = useState<{ comment: string }>({ comment: '' });
+  const [loading, setLoading] = useState<boolean>(false);
   const { token } = useSelector((state: any) => state.data);
-  if (!token) {
-    return NoToken()
-   }
+
   const router = useRouter();
-  function getComments() {
-    setLoding(true);
-    getData(`comments/${stadiumId}`).then((res) => {
-      setComments(res.data);
-      setLoding(false);
-    });
-  }
   useEffect(() => {
     getComments();
-  }, [stadiumId , openComments]);
-  const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData((pre) => ({
-      ...data,
+  }, [stadiumId, openComments]);
+  function getComments() {
+    setLoading(true);
+    getData(`comments/${stadiumId}`)
+      .then((res) => {
+        setComments(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.warning(err.response.data.message, {
+          style: { width: '250px' },
+        });
+        if (err.response.status === 401) {
+          router.push('/login');
+        }
+      });
+  }
+
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     getData
       .post(`comments/${stadiumId}`, data, {
         headers: { authorization: `Bearer ${token}` },
       })
-      .then((res) => {
-        data.comment =''
-        ;
+      .then(() => {
+        setData({ comment: '' });
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          toast.warning("Iltimos oldin hisobga kiring!");
-          router.replace('/login')
+          toast.warning('Iltimos oldin hisobga kiring!');
+          router.replace('/login');
         }
-      }).finally(() =>{
-        getComments()
       })
+      .finally(() => {
+        getComments();
+      });
   };
   return (
     <section>
@@ -111,7 +122,7 @@ function Comments({
       >
         <div className="relative z-0 w-full   px-4 group">
           <input value={data.comment}
-            onChange={(e) => handlechange(e)}
+            onChange={(e) => handleChange(e)}
             type="text"
             name="comment"
             id="floating_email"
@@ -123,11 +134,11 @@ function Comments({
             htmlFor="floating_email"
             className=" flex peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-0 scale-75 top-3 -z-10 origin-[0] peer-focus:left-6 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y- peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Sharh qoldiring...
+            {token?  'Sharh qoldiring...' :"Oldin tizimga kiring" }
           </label>
         </div>
         <button
-          disabled={token ? false : true}
+          disabled={!token}
           type="submit"
           className="dark:text-white "
         >

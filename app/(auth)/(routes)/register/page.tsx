@@ -70,14 +70,12 @@ const Register = () => {
   return (
     <section className=" w-full h-[100vh] bg-white flex items-center justify-center flex-col dark:bg-gray-700">
       <div className="flex flex-col  w-full justify-center">
-        <h1 className="mx-auto  text-center  font-bold text-gray-900 dark:text-white md:text-4xl text-2xl">
-          Xush kelibsiz!
-        </h1>
+     
         <form
           onSubmit={(e) => handeSubmit(e)}
           className="md:w-[30%] w-[70%]  mx-auto "
         >
-          <div className="relative z-0   group rounded-full flex items-center justify-center mx-auto cursor-pointer  border-2 md:w-[120px] w-[80px]   md:h-[120px] h-[80px]   ">
+          <div className="relative z-0   group rounded-full flex items-center justify-center mx-auto cursor-pointer  border-2 md:w-[110px] w-[70px]   md:h-[110px] h-[70px]   ">
             <label className=" relative md:w-[100px] w-[60px]   md:h-[100px] h-[60px]">
               <Image
                 className="rounded-full object-cover"
@@ -106,7 +104,7 @@ const Register = () => {
               required
             />
             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              <Person /> Ismingizni kiriting
+              <Person /> F.I.O kiriting
             </label>
           </div>
           <div className="relative z-0 w-full mb-6 group">
