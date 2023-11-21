@@ -32,9 +32,9 @@ function Header() {
   const { token } = useSelector((state: any) => state.data);
   useEffect(() => {}, []);
   const socket = io("localhost:4000/events");
-
   userdata &&
-    socket.on(`newMessage-${userdata.id}`, (message) => {
+  socket.on(`newMessage-${userdata._id}`, (message) => {
+    console.log('notif');
       addNote({
         title: message,
         icon : "https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no" ,
@@ -46,8 +46,7 @@ function Header() {
         },
       });
     });
-console.log(userdata);
-  useEffect(() => {
+    useEffect(() => {
     getLocation();
  token &&   getData("users/me", { headers: { authorization: `Bearer ${token}` } }).then(
       (res) => {
@@ -320,7 +319,7 @@ console.log(userdata);
           </li>
         </ul>
       </div>
-      <div  onClick={toggleDropdown} className={ ` fixed  top-0 left-0 w-full h-[100vh] bg-black bg-opacity-60 ${isDropdownOpen ? "" : "hidden" }`} ></div>
+      <div  onClick={toggleDropdown} className={ `transition-all inset-0 overflow-y-auto  duration-500 fixed  top-0 left-0 w-full h-[100vh] bg-black bg-opacity-60 ${isDropdownOpen ? "visible" : "hidden" }`} ></div>
     </header>
   );
 }

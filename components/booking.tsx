@@ -131,7 +131,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                             </button>
                             <div className="px-6 py-6 lg:px-8 ">
                                 <h3 className="mb-4 md:text-xl text-lg text-center  font-medium text-gray-700 dark:text-white">
-                                   So&apos; yuborish uchun formani to&apos;ldiring
+                                   So&apos;rov yuborish uchun formani to&apos;ldiring
                                 </h3>
                                 <form
                                     onSubmit={(e) => Bookingsubmit(e)}
@@ -141,9 +141,9 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                                     <div>
                                         <label
                                             htmlFor="n"
-                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
+                                            className="block text-center mb-2 text-xs font-medium text-gray-700 dark:text-white"
                                         >
-                                           <Call/> Bog&apos;lanish uchun mobil raqam qoldiring (majburiy)
+                                           <Call sx={{width:"14px"}} /> Bog&apos;lanish uchun mobil raqam qoldiring (majburiy)
                                         </label>
                                         <input
                                             onChange={handlechange}

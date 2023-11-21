@@ -17,17 +17,16 @@ import { prettyDateFormat, formatDateWithMonthNames } from "@/utils/utils";
 import { Loader } from "@/components";
 import Link from "next/link";
 import NoToken from "@/components/noToken";
+import Segments from "@/components/segments";
 
 function Bookings() {
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
   const [bookings, setBookings] = useState<bookingFace[]>([]);
   const [loading, setLoading] = useState(true);
-  if(!token){
-    setTimeout(() => {
-      return <NoToken/>
-    }, 200);
-  }
+    if (!token) {
+      return NoToken();
+    }
   useEffect(() => {
     if (token && loading) {
       getBookings();
@@ -43,67 +42,69 @@ function Bookings() {
       })
       .catch((err) => {
         toast.warning(err.response.data.message);
+        console.log("hey");
+        setLoading(false);
         if (err.response.status === 401) {
-          router.push('login');
+          router.push("login");
         }
       });
   };
 
   const deleteGame = (id: string) => {
-    getData.delete(`bookings/one/${id}`, {
-      headers: { authorization: `Bearer ${token}` },
-    })
-    .then((res) => {
-      toast.success(res.data.msg);
-      getBookings();
-    });
+    getData
+      .delete(`bookings/one/${id}`, {
+        headers: { authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        toast.success(res.data.msg);
+        getBookings();
+      });
   };
 
   return (
-    <main className="mt-16">
+    <main className="duration-100 max-w-screen-xl min-h-[65vh]   mx-auto p-2  transition-all mt-12 md:p-5 ">
+
       <div>
-        <h3 className="text-2xl text-gray-900 dark:text-white font-semibold text-center p-3">
-          Your bookings!
-        </h3>
+        <Segments />
       </div>
       {loading ? (
         <Loader />
       ) : (
-        bookings.map((el, i) => (
+        bookings?.map((el, i) => (
           <div
             key={i}
             className="md:w-[500px] w-[90%] border dark:border-gray-500  rounded-lg  p-2 mx-auto my-5 flex flex-col gap-2"
           >
             <div className="flex justify-between text-gray-600 dark:text-gray-300 tex-sm ">
-              <div title="O'yin vaqti va manzili" className="text-sm w-[70%]">
-                <Games sx={{ width: "18px" }} />{" "}
+              <div title="O'yin vaqti va manzili" className="text-xs w-[90%]">
+                <Games sx={{ width: "14px" }} />{" "}
                 {formatDateWithMonthNames(el.from)}
                 <Link href={`stadium/${el.stadion._id}`}>
-                  <LocationOn sx={{ width: "18px" }} /> {el.stadion.destination}
+                  <LocationOn sx={{ width: "14px" }} /> {el.stadion.destination}
                 </Link>
               </div>
               <div className="flex text-xs"></div>
-              <button onClick={() => deleteGame(el._id)}>
+              <button disabled={el?.confirmed} onClick={() => deleteGame(el._id)}>
                 <CancelRounded />
               </button>
             </div>
-            <div className="text-gray-700 dark:text-gray-300 flex justify-between">
-              <span>
+            <div className="text-gray-700 text-xs dark:text-gray-300 flex justify-between items-center">
+              <span className="flex items-center">
                 {" "}
-                <Person /> {el.stadion?.owner?.name}
+                <Person sx={{ width: "14px" }} /> {el.stadion?.owner?.name}
               </span>{" "}
               <a
                 className="ml-5 underline text-sm"
                 href={`tel:+998${el.stadion?.callnumber}`}
               >
                 {" "}
-                <Call sx={{ width: "20px" }} />
-                +998{el.stadion?.callnumber}
+                <Call sx={{ width: "14px" }}  />
+                {el.stadion?.callnumber}
               </a>
             </div>
-            <div className="flex gap-10 justify-between">
-              <div className="text-sm  flex items-center text-gray-500  gap-2">
-                <AccessTime sx={{ color: "gray", width: "15px" }} />{" "}
+            <div className="flex gap-1 items-center justify-between">
+              <div className="text-xs  flex items-center text-gray-500  gap-2">
+                <AccessTime sx={{ color: "gray", width: "14px" }} />{" "}
                 {prettyDateFormat(`${el.created_at}`)}
               </div>
               <div>

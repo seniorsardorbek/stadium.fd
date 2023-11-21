@@ -13,8 +13,8 @@ import {
   NotificationsActive,
   Person,
 } from "@mui/icons-material";
-import MiniLoader from "@/components/miniloader";
 import NoToken from "@/components/noToken";
+import Segments from "@/components/segments";
 
 function Notifications() {
   const router = useRouter();
@@ -22,9 +22,7 @@ function Notifications() {
   const [loading, setLoading] = useState<boolean>(true);
   const [events, setEvents] = useState<eventsFace[]>([]);
 if(!token){
-  setTimeout(() => {
     return <NoToken/>
-  }, 200);
 }
   useEffect(() => {
     if (loading && token) {
@@ -49,22 +47,26 @@ if(!token){
   };
 
   const markAsRead = (id: string) => {
-    getData.put(`events/${id}`, {}, { headers: { authorization: `Bearer ${token}` } })
+    getData.put(`eventss/${id}`, {}, { headers: { authorization: `Bearer ${token}` } })
       .then(() => {
         getEvents();
+      }).catch((res)=>{
+        toast.error(res.data.message )
       });
   };
 
-
   return (
-    <main className="mt-16">
+    <main className="duration-100 max-w-screen-xl min-h-[65vh]   mx-auto p-2  transition-all mt-12 md:p-5 ">
+      <div>
+        <Segments/>
+      </div>
       {loading ? (
         <Loader />
       ) : (
         events?.map((el, i) => (
           <button
             disabled={el.viewed}
-            onDoubleClick={() => !el.viewed && markAsRead(el._id)}
+            onDoubleClick={() => !el?.viewed && markAsRead(el?._id)}
             className={`w-[90%] cursor-pointer md:max-w-lg relative flex flex-col justify-between mx-auto my-2 dark:bg-gray-700 bg-blue-100 dark:text-white rounded-xl h-24 p-3 ${
               el.viewed ? "opacity-70" : ""
             }`}
@@ -81,15 +83,15 @@ if(!token){
               <div className="flex items-center justify-between">
                 <span className="md:text-sm text-xs text-start">
                   <Person
-                    className={`${el.viewed ? "text-blue-700" : "text-red-700 "}`}
+                    className={`${el?.viewed ? "text-blue-700" : "text-red-700 "}`}
                   />{" "}
-                  {el.eventBy.name}
+                  {el?.eventBy?.name}
                 </span>
                 <time
-                  dateTime={el.created_at}
+                  dateTime={el?.created_at}
                   className="md:text-sm text-[10px] flex items-center gap-2"
                 >
-                  {prettyDateFormat(el.created_at)}
+                  {prettyDateFormat(el?.created_at)}
                   {el.viewed ? (
                     <DoneAll sx={{ width: "18px" }} />
                   ) : (

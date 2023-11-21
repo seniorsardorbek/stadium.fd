@@ -33,7 +33,7 @@ const CustomImage: FC<Props> = ({
               : "scale-100 blur-0 grayscale-0"
           }}`}
           fill
-          priority={true}
+          priority={false}
           onLoadingComplete={() => setIsLoading(false)}
         />
       ) : (
@@ -45,7 +45,7 @@ const CustomImage: FC<Props> = ({
               ? "scale-110 blur-2xl grayscale"
               : "scale-100 blur-0 grayscale-0"
           }}`}
-          priority={true}
+          priority={false}
           width={width}
           height={height}
           onLoadingComplete={() => setIsLoading(false)}

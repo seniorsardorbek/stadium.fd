@@ -52,7 +52,7 @@ export interface  CommentFace{
     }
 }
 export interface userFace {
-    id : string
+    _id : string
     name: string
     email : string
     avatarka : string
