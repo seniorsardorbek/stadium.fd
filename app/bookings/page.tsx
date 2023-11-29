@@ -24,9 +24,9 @@ function Bookings() {
   const { token } = useSelector((state: any) => state.data);
   const [bookings, setBookings] = useState<bookingFace[]>([]);
   const [loading, setLoading] = useState(true);
-    if (!token) {
-      return NoToken();
-    }
+  if(!token){
+    return <NoToken/>
+}
   useEffect(() => {
     if (token && loading) {
       getBookings();

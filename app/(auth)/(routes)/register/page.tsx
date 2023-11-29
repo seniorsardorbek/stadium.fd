@@ -38,6 +38,7 @@ const Register = () => {
       reader.readAsDataURL(file);
     }
   };
+  console.log(image);
   const handeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

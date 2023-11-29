@@ -49,6 +49,7 @@ export interface  CommentFace{
         _id : string
         name: string
         email:string
+        avatarka:  string
     }
 }
 export interface userFace {

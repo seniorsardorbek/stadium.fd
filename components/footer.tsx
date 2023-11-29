@@ -1,12 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import image from "../statics/1111.png";
+import { Email, Instagram, Telegram, YouTube } from "@mui/icons-material";
 function Footer() {
   return (
     <footer className="bg-white  shadow dark:bg-gray-950 z-40 border-t ">
       <div className="w-full max-w-screen-xl   mx-auto p-2 flex flex-col justify-center ">
-        <div className="flex  items-center justify-between md:p-3 p-1">
+        <div className="flex  items-center justify-between flex-col md:flex-row md:p-3 p-1">
+          <ul className="flex items-center gap-4 my-2" >
+            <li className="dark:text-white text-gray-700" ><Link href={'#'} > <Instagram/></Link></li>
+            <li className="dark:text-white text-gray-700" ><Link href={'#'} > <Telegram/></Link></li>
+            <li className="dark:text-white text-gray-700" ><Link href={'#'} > <YouTube/></Link></li>
+            <li className="dark:text-white text-gray-700" ><Link href={'#'} > <Email/></Link></li>
+          </ul>
           <ul className="flex flex-wrap  items-center justify-center  text-sm font-medium text-gray-900  dark:text-white">
             <li>
               <Link href="#" className=" mr-2 text-xs md:text-md hover:underline md:mr-6 ">

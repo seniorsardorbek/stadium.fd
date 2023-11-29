@@ -10,6 +10,7 @@ import { Call, KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material
 import { useSelector } from "react-redux";
 import MiniLoader from "./miniloader";
 import { toast } from "react-toastify";
+import NoToken from "./noToken";
 
 interface Props {
     stadionId?: string;
@@ -22,6 +23,11 @@ const Bookings: FC<Props> = ({ stadionId }) => {
     const [visible, setvisibe] = useState<boolean>(false);
     const { token } = useSelector((state: any) => state.data);
 
+
+
+    if(!token){
+        return <NoToken/>
+    }
     const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData((pre) => ({
             ...data,

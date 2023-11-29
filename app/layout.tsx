@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uz">
-      <body className={`${inter.className} transition-all `}> <Providers>{children}</Providers></body>
+      <body className={`${inter.className} transition-all relative `}> <Providers>{children}</Providers></body>
     </html>
   )
 }

@@ -16,6 +16,7 @@
     "@pbe/react-yandex-maps": "^1.2.5",
     "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^1.9.7",
+    "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.5.1",
     "flowbite": "^1.8.1",
     "google-map-react": "^2.2.1",
