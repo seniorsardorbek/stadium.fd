@@ -1,5 +1,6 @@
 "use client";
 import { Loader } from "@/components";
+import NotUserLoc from "@/components/notUserLoc";
 import { getData } from "@/utils/api";
 import { StadionType } from "@/utils/types";
 import {
@@ -17,7 +18,10 @@ function Page() {
   const [stadions, setStadions] = useState<StadionType[]>([]);
   const [loader, setLoader] = useState<Boolean>(true);
   const { UserLoc } = useSelector((state: any) => state.data);
-
+ 
+  if(!UserLoc){
+    return <NotUserLoc/>
+  }
   useEffect(() => {
     getData(
       `stadions${
@@ -46,8 +50,9 @@ function Page() {
   const handlePlacemarkClick = (_id: string) => {
     history.push(`stadium/${_id}`);
   };
+  console.log(UserLoc);
   return (
-    <main className="mt-16 relative">
+    <main className="mt-16 relative w-full">
       {
         loader ? <Loader/> :
      
@@ -60,8 +65,8 @@ function Page() {
         <Map
         className="w-full  h-[77vh]  absolute "
           defaultState={{
-            center: [41.311081, 69.240562],
-            zoom: 12,
+            center: [(UserLoc.lat || 41.311668), (UserLoc.lng || 69.246089)],
+            zoom: 14,
           }}
         >
           <Clusterer

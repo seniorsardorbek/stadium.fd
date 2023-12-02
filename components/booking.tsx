@@ -23,11 +23,6 @@ const Bookings: FC<Props> = ({ stadionId }) => {
     const [visible, setvisibe] = useState<boolean>(false);
     const { token } = useSelector((state: any) => state.data);
 
-
-
-    if(!token){
-        return <NoToken/>
-    }
     const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData((pre) => ({
             ...data,

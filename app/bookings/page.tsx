@@ -62,7 +62,7 @@ function Bookings() {
   };
 
   return (
-    <main className="duration-100 max-w-screen-xl min-h-[65vh]   mx-auto p-2  transition-all mt-12 md:p-5 ">
+    <main className="duration-100 max-w-screen-xl min-h-[65vh] w-full   mx-auto p-2  transition-all mt-12 md:p-5 ">
 
       <div>
         <Segments />

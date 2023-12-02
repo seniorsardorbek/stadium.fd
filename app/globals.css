@@ -118,3 +118,8 @@ main {
 .scrollbar-hidden::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
+
+.slider{
+  display: flex ;
+  flex-direction: row;
+}

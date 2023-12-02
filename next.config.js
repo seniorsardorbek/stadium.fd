@@ -3,7 +3,7 @@ const nextConfig = {
   crossOrigin : 'anonymous' ,
     images: {
         unoptimized: true ,
-        domains: ["localhost"], 
+        domains: ["minimatch.onrender.com"], 
       },
       // output: 'export',
 }

@@ -4,11 +4,11 @@ import React from "react";
 function Sponsors() {
    
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="">
       <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
         
         <div 
-      className="grid  gap-8 text-gray-500 sm:gap-12  grid-flow-col overflow-x-scroll lg:grid-cols-6 dark:text-gray-400">
+      className="grid  gap-8 text-gray-500 sm:gap-12  grid-flow-col overflow-x-scroll  lg:grid-cols-6 dark:text-gray-400">
     
           <a href="#" className="flex justify-center items-center">
             <svg

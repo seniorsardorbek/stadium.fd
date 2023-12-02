@@ -3,9 +3,9 @@ import Sponsors from '@/components/sponsors'
 
 export default function Home() {
   return (
-    <main>
+    <main className='h-full' >
       <Hero/>
-      <Sponsors/>
+      {/* <Sponsors/> */}
     </main>
   )
 }

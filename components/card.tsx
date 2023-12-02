@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 const Card: FC<{ stadion: StadionType }> = ({ stadion }) => {
     const { UserLoc } = useSelector((state :any ) => state.data);
     return (
-        <Link href={`stadium/${stadion._id}`}  className="bg-white    boxShadow cursor-pointer  h-48  relative rounded-lg  w-72  m-2  " >
+        <Link href={`stadiums/${stadion._id}`}  className="bg-white    boxShadow cursor-pointer  h-48  relative rounded-lg  w-72  m-2  " >
             <Carousel
                 autoPlay
                 swipeable={false}
@@ -30,11 +30,11 @@ const Card: FC<{ stadion: StadionType }> = ({ stadion }) => {
                     haversineDistance(stadion.lat , stadion.lng , UserLoc.lat , UserLoc.lng  )
                 }km
             </span>}
-            <div  className="flex items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -">
-                <p className="w-[70%]" >
+            <div  className="flex w-full items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -">
+                <p className="w-[100%]" >
                     {
                         stadion.destination.substring(0,50)
-                    }...
+                    }{stadion?.destination?.length > 50  && "..."}
                 </p>
                 <div className="flex  flex-col justify-end">
                     <span className="  bg-gray-700 text-white text-[10px] font-medium  px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-white" >{stadion.cost}sum</span>

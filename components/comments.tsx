@@ -99,7 +99,7 @@ function Comments({
                 <div key={i} className="flex  gap-2 p-3 rounded-2xl my-1 dark:text-white text-gray-900  mx-auto w-[90%]">
                   <Avatar sx={{width : '30px' , height:"30px"}} >
                     <Image  className="object-cover rounded-full w-9 h-9"
-                  src={"http://localhost:4000/" + el.commentBy?.avatarka}
+                  src={"http://192.168.100.22:4000/" + el.commentBy?.avatarka}
                   alt="Profile picture"
                   width={35}
                   height={35}/> </Avatar>{" "}

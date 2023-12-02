@@ -4,10 +4,10 @@ import React from "react";
 import { Email, Instagram, Telegram, YouTube } from "@mui/icons-material";
 function Footer() {
   return (
-    <footer className="bg-white  shadow dark:bg-gray-950 z-40 border-t ">
+    <footer className=" z-40 border-t ">
       <div className="w-full max-w-screen-xl   mx-auto p-2 flex flex-col justify-center ">
         <div className="flex  items-center justify-between flex-col md:flex-row md:p-3 p-1">
-          <ul className="flex items-center gap-4 my-2" >
+          <ul className="flex items-center gap-4 " >
             <li className="dark:text-white text-gray-700" ><Link href={'#'} > <Instagram/></Link></li>
             <li className="dark:text-white text-gray-700" ><Link href={'#'} > <Telegram/></Link></li>
             <li className="dark:text-white text-gray-700" ><Link href={'#'} > <YouTube/></Link></li>
