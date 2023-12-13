@@ -1,15 +1,14 @@
 "use client";
 import { getData } from "@/utils/api";
-import React, { useEffect, useState } from "react";
-import { Avatar } from "@mui/material";
 import { CommentFace } from "@/utils/types";
-import { prettyDateFormat } from "@/utils/utils";
+import { timeAgo } from "@/utils/utils";
 import { Send } from "@mui/icons-material";
+import { Avatar } from "@mui/material";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import NoToken from "./noToken";
-import Image from "next/image";
 
 function Comments({
   stadiumId,
@@ -61,11 +60,12 @@ function Comments({
       .post(`comments/${stadiumId}`, data, {
         headers: { authorization: `Bearer ${token}` },
       })
-      .then(() => {
+      .then((res) => {
         setData({ comment: '' });
+
       })
       .catch((err) => {
-        if (err.response.status === 401) {
+        if (err.response?.status === 401) {
           toast.warning('Iltimos oldin hisobga kiring!');
           router.replace('/login');
         }
@@ -99,17 +99,16 @@ function Comments({
                 <div key={i} className="flex  gap-2 p-3 rounded-2xl my-1 dark:text-white text-gray-900  mx-auto w-[90%]">
                   <Avatar sx={{width : '30px' , height:"30px"}} >
                     <Image  className="object-cover rounded-full w-9 h-9"
-                  src={"http://192.168.100.22:4000/" + el.commentBy?.avatarka}
+                  src={"http://94.228.112.211:4000/" + el.commentBy?.avatarka}
                   alt="Profile picture"
                   width={35}
                   height={35}/> </Avatar>{" "}
                     {
                       <div className="flex  flex-col w-[90%]">
-                        <div className="flex text-xs  text-gray-500 gap-1">
+                        <div className="flex text-xs justify-between  text-gray-500 gap-1">
                           <a href={`mailto:${el.commentBy.email}`}>
-                            {el.commentBy.email}
-                          </a>{" "}
-                          ·<time>{prettyDateFormat(el.created_at)}</time>
+                            {el.commentBy.email.slice( 0 , 25)}
+                          </a><time>{timeAgo(el.created_at)}</time>
                         </div>
                         <p>{el.comment}</p>
                       </div>

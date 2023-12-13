@@ -34,7 +34,7 @@ export interface bookingFace{
     from:number
     _id: string
     stadion: StadionType
-    confirmed : boolean
+    status : 'pending' | 'confirmed' | 'rejected'
 
 }
 

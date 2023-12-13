@@ -25,7 +25,7 @@ const CustomImage: FC<Props> = ({
     <>
       {fill ? (
         <Image
-          src={"http://192.168.100.22:4000/" + url}
+          src={"http://94.228.112.211:4000/" + url}
           alt={alt}
           className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${
             isLoading
@@ -38,7 +38,7 @@ const CustomImage: FC<Props> = ({
         />
       ) : (
         <Image
-          src={"http://192.168.100.22:4000/" + url}
+          src={"http://94.228.112.211:4000/" + url}
           alt={alt}
           className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${
             isLoading

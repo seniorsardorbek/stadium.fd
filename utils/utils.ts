@@ -75,3 +75,48 @@ export function haversineDistance(lat1 :number, lon1 :number, lat2 :number, lon2
   return  distance.toFixed(1)
    
 }
+
+export const show = {
+  opacity: 1,
+};
+
+export const hide = {
+  opacity: 0,
+};
+
+
+export function timeAgo(timestamp : string) {
+  const currentDate = new Date();
+  const previousDate = new Date(timestamp);
+  const timeDifference = currentDate.getTime() - previousDate.getTime();
+
+  // Define time intervals in milliseconds
+  const minute = 60 * 1000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const week = 7 * day;
+  const month = 30 * day;
+  const year = 365 * day;
+
+  if (timeDifference < minute) {
+    return 'Just now';
+  } else if (timeDifference < hour) {
+    const minutes = Math.floor(timeDifference / minute);
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+  } else if (timeDifference < day) {
+    const hours = Math.floor(timeDifference / hour);
+    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  } else if (timeDifference < week) {
+    const days = Math.floor(timeDifference / day);
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  } else if (timeDifference < month) {
+    const weeks = Math.floor(timeDifference / week);
+    return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+  } else if (timeDifference < year) {
+    const months = Math.floor(timeDifference / month);
+    return `${months} month${months > 1 ? 's' : ''} ago`;
+  } else {
+    const years = Math.floor(timeDifference / year);
+    return `${years} year${years > 1 ? 's' : ''} ago`;
+  }
+}

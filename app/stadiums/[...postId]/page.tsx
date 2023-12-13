@@ -5,6 +5,7 @@ import { SimpleMap } from "@/components/map";
 import { getData } from "@/utils/api";
 import { StadionType } from "@/utils/types";
 import {
+  CommentTwoTone,
   InsertComment,
   Person
 } from "@mui/icons-material";
@@ -54,13 +55,11 @@ function Detailed({ params: { postId } }: { params: { postId: string } }) {
         autoPlay
         interval={3000}
         transitionTime={500}
-        centerMode={true}
-        centerSlidePercentage={90}
         swipeScrollTolerance={5}
         >
         {stadion!.images.map((el, i) => (
-          <div key={i} className="  relative  md:h-[650px] h-44 overflow-hidden w-full">
-            <Image src={'http://192.168.100.22:4000/' + el}  width={0} height={0} style={{width :'100%' , height:'100%'}}  alt="s" />
+          <div key={i} className="  relative   md:h-[650px] h-44 overflow-hidden w-full">
+            <Image src={'http://94.228.112.211:4000/' + el}  width={0} height={0} style={{width :'100%' , height:'100%'}}  alt="s" />
           </div>
         ))}
       </Carousel>
@@ -78,7 +77,7 @@ function Detailed({ params: { postId } }: { params: { postId: string } }) {
           {
             <Cars/>
           }
-          <div className=" m-2 text-gray-700 dark:text-white flex flex-col gap-1 ">
+          <div className=" duration-100 max-w-screen-xl ] w-full   mx-auto p-2  transition-all md:p-2 ">
             <div className="flex flex-col dark:bg-gray-700 bg-blue-50 p-2 m-2 rounded-xl text-gray-700 dark:text-white text-sm md:text-base">
               <p>
                 <EditLocationOutlinedIcon sx={{ width: "20px" }} />{" "}
@@ -117,17 +116,18 @@ function Detailed({ params: { postId } }: { params: { postId: string } }) {
                     className="flex items-start gap-2"
                     onClick={(e) => toggleComments(e)}
                   >
-                    <InsertComment sx={{ width: "20px" }} />
-                    Sharhlar
+                    <CommentTwoTone sx={{ width: "20px" }} />
+                    Fikrlar
                   </button>
                 </div>
               </div>
             </div>
-            <div className="flex justify-around flex-col md:flex-row  gap-1 md:gap-0  transition-all  duration-500 items-start">
+            <div className="flex justify-around flex-col md:flex-row  gap-1 md:gap-0   items-start">
               <div
-                className="flex flex-col  gap-2 md:w-2/3 w-full "
+                className="flex flex-col  gap-2 w-full "
                 onClick={() => setCount(!count)}
               >
+                
                 <p
                   dangerouslySetInnerHTML={{
                     __html:
@@ -136,14 +136,14 @@ function Detailed({ params: { postId } }: { params: { postId: string } }) {
                         count ? stadion.description.length : 70
                       ) || " ",
                   }}
-                  className={`text-sm p-3 m-2 dark:bg-gray-700 bg-blue-50   transition-height ease-in-out duration-300 ${
+                  className={`text-sm p-3 m-2 dark:bg-gray-700 bg-blue-50  text-gray-950 dark:text-white   transition-height ease-in-out  duration-100 ${
                     count
                       ? "max-h-52  h-52 overflow-y-scroll-scroll"
                       : " h-[60px]"
                   }  rounded-xl  `}
                 ></p>
               </div>
-              {/* <Bookings stadionId={stadion?._id!} /> */}
+              <Bookings stadionId={stadion?._id!} />
             </div>
           </div>
           <div className="flex justify-center w-full">

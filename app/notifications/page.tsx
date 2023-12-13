@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getData } from "@/utils/api";
-import { useRouter } from "next/navigation"; // Correct the import for useRouter
+import { useRouter } from "next/router"; // Correct the import for useRouter
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Loader } from "@/components"; // Import NoToken from the correct location
+import { Loader } from "@/components";
+import Segments from "@/components/segments";
 import { eventsFace } from "@/utils/types";
 import { prettyDateFormat } from "@/utils/utils";
 import {
@@ -14,18 +15,15 @@ import {
   Person,
 } from "@mui/icons-material";
 import NoToken from "@/components/noToken";
-import Segments from "@/components/segments";
 
 function Notifications() {
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
   const [loading, setLoading] = useState<boolean>(true);
   const [events, setEvents] = useState<eventsFace[]>([]);
-  if (!token) {
-    return <NoToken />;
-  }
+
   useEffect(() => {
-    if (loading && token) {
+    if (token && loading) {
       getEvents();
     }
   }, [loading, token]);
@@ -60,6 +58,7 @@ function Notifications() {
         toast.error(res.data.message);
       });
   };
+
   function Notif({ el }: { el: eventsFace }) {
     console.log(el.created_at);
     return (
@@ -70,37 +69,15 @@ function Notifications() {
           el.viewed ? "opacity-70" : ""
         }`}
       >
-        <div className="text-sm start-0 text-start">
-          <NotificationsActive
-            sx={{ width: "18px" }}
-            className={`${el.viewed ? "text-blue-700" : "text-red-700 "}`}
-          />
-          {el.message}
-        </div>
-        <div className="flex flex-col justify-between w-full">
-          <div className="flex items-center justify-between">
-            <span className="md:text-sm text-xs text-start">
-              <Person
-                className={`${el?.viewed ? "text-blue-700" : "text-red-700 "}`}
-              />{" "}
-              {el?.eventBy?.name}
-            </span>
-            <time
-              dateTime={el?.created_at}
-              className="md:text-sm text-[10px] flex items-center gap-2"
-            >
-              {prettyDateFormat(el?.created_at)}
-              {el.viewed ? (
-                <DoneAll sx={{ width: "18px" }} />
-              ) : (
-                <Done sx={{ width: "18px" }} />
-              )}
-            </time>
-          </div>
-        </div>
+        {/* ... your component code */}
       </button>
     );
   }
+
+  if (!token) {
+    return <NoToken />;
+  }
+
   return (
     <main className="duration-100 max-w-screen-xl min-h-[65vh] w-full   mx-auto p-2  transition-all mt-12 md:p-5 ">
       <div>

@@ -17,35 +17,39 @@ import addNote from "react-push-notification";
 import io from "socket.io-client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import image from "../statics/1111.png";
+import logo from "../statics/1111.png";
+import darkLogo  from "../statics/logo-dark.png"
 import { userFace } from "../utils/types";
 import { getData } from "@/utils/api";
 import { toast } from "react-toastify";
 import nouser from '../statics/no-user.webp'
+import { motion } from "framer-motion";
+import { hide, show } from "@/utils/utils";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [isHeaderShrunk, setIsHeaderShrunk] = useState(false);
   const [userdata, setUserData] = useState<userFace>();
   const dispatch = useDispatch();
   const router = useRouter();
   const { token } = useSelector((state: any) => state.data);
   useEffect(() => {}, []);
-  // const socket = io("minimatch.onrender.com/events");
-  // userdata &&
-  // socket.on(`newMessage-${userdata._id}`, (message) => {
-  //     addNote({
-  //       title: message,
-  //       icon : "https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no" ,
-  //       message: message,
-  //       duration: 4000,
-  //       native: true,
-  //       onClick: () => {
-  //         router.push("notifications");
-  //       },
-  //     });
-  //   });
+  const socket = io("94.228.112.211:4000/events");
+  userdata &&
+  socket.on(`newMessage-${userdata._id}`, (message) => {
+    console.log('salom');
+      addNote({
+        title: 'Yangi xabar minimtachdan!',
+        icon : "https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no" ,
+        message: message,
+        duration: 4000,
+        native: true,
+        onClick: () => {
+          router.push("notifications");
+        },
+      });
+    });
 
   useEffect(() => {
     getLocation();
@@ -114,13 +118,16 @@ function Header() {
   }
   return (
     <header
-      className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50]  border-gray-200 ${
-        isHeaderShrunk ? " boxShadow bg-white dark:bg-gray-800 " : ""
+      className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50]  border-gray-200  ${
+        isHeaderShrunk ? " boxShadow  backdrop-blur-3xl bg-blue-50 dark:bg-slate-900 backdrop-opacity-50  " : ""
       }`}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <Link href="/" className="flex items-center w-[140px] md:w-[200px]">
-          <Image src={image} alt="Logo" width={200} />
+          {
+            darkMode ? <Image src={logo} alt="Logo" width={200} /> :<Image src={darkLogo} alt="Logo" width={200} />
+          }
+          
         </Link>
         <div className="flex items-center md:order-2">
           <div
@@ -143,7 +150,7 @@ function Header() {
               {userdata?.avatarka ? (
                 <Image
                   className="object-cover rounded-full w-9 h-9"
-                  src={"http://192.168.100.22:4000/" + userdata?.avatarka}
+                  src={"http://94.228.112.211:4000/" + userdata?.avatarka}
                   alt="Profile picture"
                   width={35}
                   height={35}
@@ -154,7 +161,13 @@ function Header() {
             </div>
           </button>
 
-          <div
+          <motion.div
+            animate={isDropdownOpen ? show : hide }
+            transition={{
+                ease: "easeOut",
+                duration: 0.1,
+                x: { duration: 5 }
+              }}
           className={` absolute top-10 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
             isDropdownOpen ? "" : "hidden"
             }`}
@@ -164,7 +177,7 @@ function Header() {
               <span className="block text-sm text-white-900 dark:text-white">
                 {userdata?.name || "You not loging"}
               </span>
-              <span className="block text-sm text-white-900 dark:text-white">
+              <span className="block text-sm text-white-900 dark:text-white overflow-scroll md:overflow-auto w-44 ">
                 {userdata?.email || "You not loging"}
               </span>
             </div>
@@ -220,7 +233,7 @@ function Header() {
                 )}
               </li>
             </ul>
-          </div>
+          </motion.div>
           <button
             data-collapse-toggle="navbar-user"
             type="button"
@@ -255,13 +268,13 @@ function Header() {
         </div>
         <div
           onClick={toggleMenu}
-          className={` md:hidden md:bg-transparent md:h-auto md:w-auto md:pt-0  flex justify-end  md:right-auto absolute w-[100%] h-[100vh] top-0 right-0   bg-black bg-opacity-50   z-20   transition-all duration-200 ${
+          className={` md:hidden md:bg-transparent md:h-auto md:w-auto md:pt-0  flex justify-end  md:right-auto absolute w-[100%] h-[100vh] top-0 right-0   bg-black bg-opacity-50   z-20   transition-all duration-200  ${
             isMenuOpen ? "" : "hidden"
           }`}
           id="navbar-user"
         ></div>
         <ul
-          className={`   flex flex-col md:flex-row gap-3 md:translate-x-0 md:gap-0 transition-all duration-300 z-30  dark:bg-gray-900 bg-white   md:bg-transparent md:dark:bg-transparent  fixed md:relative  h-[100vh]  md:h-auto w-[60%] md:w-auto   top-0 right-0 font-medium p-4 md:p-0  pt-20       md:space-x-8 md:pt-0  md:border-0   ${
+          className={`   flex flex-col md:flex-row gap-3 md:translate-x-0 md:gap-0 transition-all duration-300 z-30  dark:bg-gray-900 bg-white   md:bg-transparent md:dark:bg-transparent  fixed md:relative  h-[100vh]  md:h-auto w-[60%] md:w-auto   top-0 right-0 font-medium p-4 md:p-0  pt-20       md:space-x-8 md:pt-0  md:border-0  ${
             !isMenuOpen ? "translate-x-full" : "translate-x-0"
           }`}
         >

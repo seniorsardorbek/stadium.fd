@@ -29,9 +29,7 @@ const initialState = {
   userdata : isLocalStorageAvailable()
     ? JSON.parse(localStorage.getItem("userdata"))
     : false,
-  UserLoc: isSessionStorageAvailable()
-    ? JSON.parse(sessionStorage.getItem("UserLoc"))
-    : false,
+  UserLoc:  false,
   search: "",
 };
 
@@ -44,8 +42,7 @@ const dataSlice = createSlice({
       state.userdata = action.payload.data;
     },
     setUserLoc(state, action) {
-      sessionStorage.setItem("UserLoc", JSON.stringify(action.payload));
-      state.userdata = action.payload.data;
+      state.UserLoc = action.payload;
     },
     setToken(state, action) {
       const expirationTime = 7 * 24 * 60 * 60 * 1000;

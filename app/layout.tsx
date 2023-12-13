@@ -15,7 +15,7 @@ export const runtime = 'nodejs'
 export const preferredRegion = 'auto'
 export const maxDuration = 5
 export const metadata: Metadata = {
-  title: 'Stadion rent ',
+  title: 'MiniMatch.uz ',
   description: "O'zingizning stadioningizni xarid qiling",
 }
 export default function RootLayout({
