@@ -58,8 +58,8 @@ function Detailed ({ params: { postId } }: { params: { postId: string } }) {
             autoplay={true}
             className='mySwiper'
           >
-            {stadion?.images.map(image => (
-              <SwiperSlide className='w-full md:h-[500px] h-[30vh] '>
+            {stadion?.images.map((image , i) => (
+              <SwiperSlide key={i} className='w-full md:h-[500px] h-[30vh] '>
                 <CustomImage url={image} alt='jdjjd' fill />
               </SwiperSlide>
             ))}
