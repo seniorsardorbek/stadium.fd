@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { toast } from "react-toastify";
+import VerificationInput from "react-verification-code-input";
 const Login = () => {
-  const [data, setadata] = useState<{ username: string; password: string }>({
-    username: "",
-    password: "",
+  const [data, setadata] = useState<{ code: number }>({
+    code: 0,
   });
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -31,68 +31,37 @@ const Login = () => {
       })
       .catch((err) => {
         setLoading(false);
-        alert(err.response.data.message);
+        toast.error(err.response?.data?.msg)
       });
   };
-  const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setadata((pre) => ({
-      ...data,
-      [e.target.name]: e.target.value,
-    }));
+  const handlechange = (e: string) => {
+    setadata({
+      code: parseInt(e),
+    });
   };
-  function googleAuth() {
-    getData("/auth/google/login");
-  }
   return (
     <section className=" w-full h-[100vh]  flex bg-white dark:bg-gray-700 items-center justify-center flex-col">
       <div className="flex flex-col  w-full justify-center">
-        <h1 className="mx-auto  text-center  font-bold text-gray-900 dark:text-white md:text-4xl text-2xl">
-          Xush kelibsiz!
-        </h1>
+        <span className="text-center" > <a href="https://t.me/minimatchbot" target="_blank" rel="noopener noreferrer"> @minimatch</a> telegram botiga kiring va 1 daqiqalik kodingizni oling.</span>
         <form
           onSubmit={(e) => handeSubmit(e)}
-          className="md:w-[30%] w-[70%]  mx-auto mt-12 "
+          className="md:w-[30%] w-[70%] flex gap-5 flex-col items-center justify-between  mx-auto mt-12 "
         >
-          <div className="relative z-0 w-full mb-6 group">
-            <input
-              onChange={handlechange}
-              type="mail"
-              name="email"
-              id="email"
-              className="block md:py-2.5 py-2 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-100 dark:focus:border-gray-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
-              placeholder=" "
-              required
-            />
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              <Email /> Elektron pochtangizni kiriting!
-            </label>
-          </div>
+          <VerificationInput required 
+          fieldHeight={30}
+            type="number"
+            loading={loading}
+            fields={4}
+            className="mx-auto"
+            onChange={(e) => handlechange(e)}
+            autoFocus
+          />
 
-          <div className="relative z-0 w-full mb-6 group">
-            <input
-              onChange={handlechange}
-              type="password"
-              name="password"
-              id="password"
-              className="block md:py-2.5 py-2 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
-              placeholder=" "
-              required
-            />
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              <Key /> Parolingizni kiriting
-            </label>
-            <span className="text-xs text-center block text-gray-400 mt-3">
-              Agar sizda hisob mavjud bo&apos;lmasa{" "}
-              <Link className="text-gray-900  font-semibold" href={"/register"}>
-                ro&apos;yxatdan oting!
-              </Link>
-            </span>
-          </div>
           <button
             type="submit"
-            className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 md:py-2.5 py-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="text-white mx-auto bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 md:py-2.5 py-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
-            {loading?  <MiniLoader/> :"Yuborish!" } 
+            {loading ? <MiniLoader /> : "Yuborish!"}
           </button>
         </form>
       </div>

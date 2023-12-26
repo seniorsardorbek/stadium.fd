@@ -97,17 +97,11 @@ function Comments({
             {comments.map((el, i) => {
               return (
                 <div key={i} className="flex  gap-2 p-3 rounded-2xl my-1 dark:text-white text-gray-900  mx-auto w-[90%]">
-                  <Avatar sx={{width : '30px' , height:"30px"}} >
-                    <Image  className="object-cover rounded-full w-9 h-9"
-                  src={"http://94.228.112.211:4000/" + el.commentBy?.avatarka}
-                  alt="Profile picture"
-                  width={35}
-                  height={35}/> </Avatar>{" "}
                     {
                       <div className="flex  flex-col w-[90%]">
                         <div className="flex text-xs justify-between  text-gray-500 gap-1">
-                          <a href={`mailto:${el.commentBy.email}`}>
-                            {el.commentBy.email.slice( 0 , 25)}
+                          <a href={`tel:${el.commentBy.phonenumber}`}>
+                            {el.commentBy.name.slice( 0 , 25)}
                           </a><time>{timeAgo(el.created_at)}</time>
                         </div>
                         <p>{el.comment}</p>

@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Key } from '@mui/icons-material';
 
 // ... (imports remain the same)
 
@@ -83,7 +84,7 @@ function Page() {
                 }}
               >
                 {stadions.map((coordinates, index) => (
-                  <Placemark
+                  <Placemark 
                     onClick={() => handlePlacemarkClick(coordinates._id)}
                     key={index}
                     geometry={[coordinates.lat, coordinates.lng]}

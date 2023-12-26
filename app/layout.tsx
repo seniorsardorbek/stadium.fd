@@ -15,9 +15,10 @@ export const runtime = 'nodejs'
 export const preferredRegion = 'auto'
 export const maxDuration = 5
 export const metadata: Metadata = {
-  title: 'MiniMatch.uz ',
+  title: 'Mini-match ',
   description: "O'zingizning stadioningizni xarid qiling",
 }
+import 'swiper/css';
 export default function RootLayout({
   children,
 }: {

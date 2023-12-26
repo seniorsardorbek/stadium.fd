@@ -48,15 +48,13 @@ export interface  CommentFace{
     commentBy :{
         _id : string
         name: string
-        email:string
-        avatarka:  string
+        phonenumber : string
     }
 }
 export interface userFace {
     _id : string
     name: string
-    email : string
-    avatarka : string
+    phonenumber : string
 }
  export interface eventsFace{
     _id: string

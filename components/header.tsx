@@ -1,6 +1,7 @@
 "use client";
 import { setUserLoc } from "@/utils/redux/store/dataSlice";
 import {
+  Bolt,
   HomeOutlined,
   LocalActivityOutlined,
   NearMe,
@@ -18,11 +19,11 @@ import io from "socket.io-client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../statics/1111.png";
-import darkLogo  from "../statics/logo-dark.png"
+import darkLogo from "../statics/logo-dark.png";
 import { userFace } from "../utils/types";
 import { getData } from "@/utils/api";
 import { toast } from "react-toastify";
-import nouser from '../statics/no-user.webp'
+import nouser from "../statics/no-user.webp";
 import { motion } from "framer-motion";
 import { hide, show } from "@/utils/utils";
 function Header() {
@@ -37,11 +38,12 @@ function Header() {
   useEffect(() => {}, []);
   const socket = io("94.228.112.211:4000/events");
   userdata &&
-  socket.on(`newMessage-${userdata._id}`, (message) => {
-    console.log('salom');
+    socket.on(`newMessage-${userdata._id}`, (message) => {
+      console.log("salom");
       addNote({
-        title: 'Yangi xabar minimtachdan!',
-        icon : "https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no" ,
+        title: "Yangi xabar minimtachdan!",
+        icon:
+          "https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no",
         message: message,
         duration: 4000,
         native: true,
@@ -119,15 +121,18 @@ function Header() {
   return (
     <header
       className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50]  border-gray-200  ${
-        isHeaderShrunk ? " boxShadow  backdrop-blur-3xl bg-blue-50 dark:bg-slate-900 backdrop-opacity-50  " : ""
+        isHeaderShrunk
+          ? " boxShadow  backdrop-blur-3xl bg-blue-50 dark:bg-slate-900 backdrop-opacity-50  "
+          : ""
       }`}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <Link href="/" className="flex items-center w-[140px] md:w-[200px]">
-          {
-            darkMode ? <Image src={logo} alt="Logo" width={200} /> :<Image src={darkLogo} alt="Logo" width={200} />
-          }
-          
+          {darkMode ? (
+            <Image src={logo} alt="Logo" width={200} />
+          ) : (
+            <Image src={darkLogo} alt="Logo" width={200} />
+          )}
         </Link>
         <div className="flex items-center md:order-2">
           <div
@@ -136,104 +141,74 @@ function Header() {
           >
             <div className={`moon ${!darkMode && "sun"}`}></div>
           </div>
-          <button
-            type="button"
-            className="flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-[1px] focus:ring-gray-300 dark:focus:ring-gray-100"
-            id="user-menu-button"
-            aria-expanded="false"
-            data-dropdown-toggle="user-dropdown"
-            data-dropdown-placement="bottom"
-            onClick={toggleDropdown}
-          >
-            <span className="sr-only">Open user menu</span>
-            <div className="relative bg-gradient-to-b hover:bg-gradient-r-to  from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full ">
-              {userdata?.avatarka ? (
-                <Image
-                  className="object-cover rounded-full w-9 h-9"
-                  src={"http://94.228.112.211:4000/" + userdata?.avatarka}
-                  alt="Profile picture"
-                  width={35}
-                  height={35}
-                />
-              ) : (
-               <Image src={nouser}  alt="Tizimga kirilmagan" />
-              )}
-            </div>
-          </button>
+          {token ? (
+            <>
+              <button
+                type="button"
+                className="flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-[1px] focus:ring-gray-300 dark:focus:ring-gray-100"
+                id="user-menu-button"
+                aria-expanded="false"
+                data-dropdown-toggle="user-dropdown"
+                data-dropdown-placement="bottom"
+                onClick={toggleDropdown}
+              >
+                <span className="sr-only">Open user menu</span>
+                <div className="relative bg-gradient-to-b hover:bg-gradient-r-to font-medium dark:text-white text-gray-900  text-lg border-2 inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full ">
+                  {userdata?.name ? userdata.name[0] : "NL"}
+                </div>
+              </button>
+              <motion.div
+                animate={isDropdownOpen ? show : hide}
+                transition={{
+                  ease: "easeOut",
+                  duration: 0.1,
+                  x: { duration: 5 },
+                }}
+                className={` absolute top-10 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                  isDropdownOpen ? "" : "hidden"
+                }`}
+                id="user-dropdown"
+              >
+                <div className="px-4 py-3 ">
+                  <span className="block text-sm text-white-900 dark:text-white">
+                    {userdata?.name}
+                  </span>
+                  {/* <span className="block text-xs text-white-900 dark:text-white overflow-scroll md:overflow-auto w-44 ">
+                    {userdata?.email}
+                  </span> */}
+                </div>
+                <ul className="py-2" aria-labelledby="user-menu-button">
+                  <li onClick={toggleDropdown}>
+                    <Link
+                      href="/notifications"
+                      className={`block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white`}
+                    >
+                      <span className="visible md:hidden">
+                        <NotificationImportant />
+                      </span>{" "}
+                      Bildirishnomalar
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/signout" // Update this to the appropriate sign-out route
+                      className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
+                    >
+                      Chiqish
+                    </Link>
+                  </li>
+                </ul>
+              </motion.div>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="block px-4 py-2 rounded border text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
+            >
+              Kirish <Bolt/>
+            </Link>
+          )}
 
-          <motion.div
-            animate={isDropdownOpen ? show : hide }
-            transition={{
-                ease: "easeOut",
-                duration: 0.1,
-                x: { duration: 5 }
-              }}
-          className={` absolute top-10 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
-            isDropdownOpen ? "" : "hidden"
-            }`}
-            id="user-dropdown"
-          >
-            <div className="px-4 py-3 ">
-              <span className="block text-sm text-white-900 dark:text-white">
-                {userdata?.name || "You not loging"}
-              </span>
-              <span className="block text-sm text-white-900 dark:text-white overflow-scroll md:overflow-auto w-44 ">
-                {userdata?.email || "You not loging"}
-              </span>
-            </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <Link
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
-                >
-                  <span className="visible md:hidden">
-                    <Person />
-                  </span>{" "}
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
-                >
-                  <span className="visible md:hidden">
-                    <Settings />
-                  </span>{" "}
-                  Sozlamalar
-                </Link>
-              </li>
-              <li onClick={toggleDropdown}>
-                <Link
-                  href="/notifications"
-                  className={`block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white`}
-                >
-                  <span className="visible md:hidden">
-                    <NotificationImportant />
-                  </span>{" "}
-                  Bildirishnomalar
-                </Link>
-              </li>
-              <li>
-                {userdata ? (
-                  <Link
-                    href="/signout" // Update this to the appropriate sign-out route
-                    className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
-                  >
-                    Chiqish
-                  </Link>
-                ) : (
-                  <Link
-                    href="/login"
-                    className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white"
-                  >
-                    Kirish
-                  </Link>
-                )}
-              </li>
-            </ul>
-          </motion.div>
           <button
             data-collapse-toggle="navbar-user"
             type="button"
@@ -308,7 +283,7 @@ function Header() {
               <span className="visible md:hidden">
                 <LocalActivityOutlined />
               </span>{" "}
-              Bookinglar
+              O&apos;yinlar
             </Link>
           </li>
           <li onClick={toggleMenu}>
@@ -319,7 +294,7 @@ function Header() {
               <span className="visible md:hidden">
                 <NearMe />
               </span>{" "}
-              Atrofdagilar
+              Yaqinroq
             </Link>
           </li>
         </ul>

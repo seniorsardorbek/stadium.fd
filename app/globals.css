@@ -35,6 +35,8 @@
   background: var(--bgColor--night);
 }
 
+
+
 .moon {
   position: absolute;
   display: block;
@@ -119,7 +121,3 @@ main {
   background-color: transparent;
 }
 
-.slider{
-  display: flex ;
-  flex-direction: row;
-}
