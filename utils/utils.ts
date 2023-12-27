@@ -120,3 +120,9 @@ export function timeAgo(timestamp : string) {
     return `${years} year${years > 1 ? 's' : ''} ago`;
   }
 }
+export function formatHoursFromTimestamp(timestamp: string): string {
+  const timestampObj = new Date(timestamp);
+  const hours = timestampObj.getHours();
+  const formattedHours = `${hours < 10 ? '0' : ''}${hours}:00`;
+  return formattedHours;
+}

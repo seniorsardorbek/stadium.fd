@@ -144,19 +144,11 @@ function Header() {
           {token ? (
             <>
               <button
-                type="button"
-                className="flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-[1px] focus:ring-gray-300 dark:focus:ring-gray-100"
-                id="user-menu-button"
-                aria-expanded="false"
-                data-dropdown-toggle="user-dropdown"
-                data-dropdown-placement="bottom"
-                onClick={toggleDropdown}
-              >
-                <span className="sr-only">Open user menu</span>
-                <div className="relative bg-gradient-to-b hover:bg-gradient-r-to font-medium dark:text-white text-gray-900  text-lg border-2 inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full ">
-                  {userdata?.name ? userdata.name[0] : "NL"}
-                </div>
-              </button>
+              onClick={toggleDropdown}
+              className="block px-1 py-1 rounded border text-sm text-gray-900  hover:text-white  dark:text-white  mr-1"
+            >
+              {userdata?.name} <Bolt sx={{width:"20px"}} />
+            </button>
               <motion.div
                 animate={isDropdownOpen ? show : hide}
                 transition={{
@@ -164,7 +156,7 @@ function Header() {
                   duration: 0.1,
                   x: { duration: 5 },
                 }}
-                className={` absolute top-10 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                className={` absolute top-12 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
                   isDropdownOpen ? "" : "hidden"
                 }`}
                 id="user-dropdown"
@@ -173,9 +165,9 @@ function Header() {
                   <span className="block text-sm text-white-900 dark:text-white">
                     {userdata?.name}
                   </span>
-                  {/* <span className="block text-xs text-white-900 dark:text-white overflow-scroll md:overflow-auto w-44 ">
-                    {userdata?.email}
-                  </span> */}
+                  <span className="block text-xs text-white-900 dark:text-white overflow-scroll md:overflow-auto w-44 ">
+                    {userdata?.phonenumber}
+                  </span>
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <li onClick={toggleDropdown}>
