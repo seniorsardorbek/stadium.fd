@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
-const isLocalStorageAvailable = () => {
+export const isLocalStorageAvailable = () => {
   try {
     const testKey = "__test__";
     localStorage.setItem(testKey, testKey);
