@@ -9,16 +9,17 @@ import {
   Bolt,
   HomeOutlined,
   LocalActivityOutlined,
+  LogoutOutlined,
   NearMe,
   NotificationImportant,
   SportsSoccerOutlined
 } from '@mui/icons-material'
 import { motion } from 'framer-motion'
+import Cookies from 'js-cookie'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Cookies from 'js-cookie'
 import addNote from 'react-push-notification'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -40,7 +41,7 @@ function Header () {
     socket.on(`newMessage-${userdata._id}`, message => {
       console.log('salom')
       addNote({
-        title: 'Yangi xabar minimtachdan!',
+        title: 'Yangi xabar Minimtachdan!',
         icon: 'https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no',
         message: message,
         duration: 4000,
@@ -102,7 +103,6 @@ function Header () {
   function toggleDarkMode () {
     setDarkMode(!darkMode)
   }
-
   function getLocation () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -160,7 +160,7 @@ function Header () {
                   duration: 0.1,
                   x: { duration: 5 }
                 }}
-                className={` absolute top-12 right-[8%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                className={` absolute top-12 right-[15%]  z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
                   isDropdownOpen ? '' : 'hidden'
                 }`}
                 id='user-dropdown'
@@ -173,7 +173,7 @@ function Header () {
                     {userdata?.phonenumber}
                   </span>
                 </div>
-                <ul className='py-2' aria-labelledby='user-menu-button'>
+                <ul className='py-2 ' aria-labelledby='user-menu-button'>
                   <li onClick={toggleDropdown}>
                     <Link
                       href='/notifications'
@@ -186,8 +186,8 @@ function Header () {
                     </Link>
                   </li>
                   <li>
-                    <button onClick={sighout} className='block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white'>
-                      Chiqish
+                    <button onClick={sighout} className='block w-full text-start px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white'>
+                      <LogoutOutlined/> Chiqish
                     </button>
                   </li>
                 </ul>

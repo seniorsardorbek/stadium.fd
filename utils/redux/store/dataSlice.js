@@ -29,7 +29,7 @@ const initialState = {
   userdata : isLocalStorageAvailable()
     ? JSON.parse(localStorage.getItem("userdata"))
     : false,
-  UserLoc:  false,
+  UserLoc:  {lat : 41.313764 , lng : 69.263146},
   search: "",
 };
 

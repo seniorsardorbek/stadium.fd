@@ -4,18 +4,17 @@ import NotUserLoc from "@/components/notUserLoc";
 import { getData } from "@/utils/api";
 import { StadionType } from "@/utils/types";
 import {
+  Clusterer,
+  GeolocationControl,
   Map,
 
   Placemark,
   YMaps,
-  Clusterer,
   ZoomControl,
-  GeolocationControl,
 } from "@pbe/react-yandex-maps";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Key } from '@mui/icons-material';
 
 // ... (imports remain the same)
 

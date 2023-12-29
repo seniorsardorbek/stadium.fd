@@ -52,14 +52,13 @@ function Detailed ({ params: { postId } }: { params: { postId: string } }) {
           <Swiper
             effect='fade'
             loop
-            onAutoplay={() => console.log('sl')}
             centeredSlides
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             autoplay={true}
-            className='mySwiper'
+            className='mySwiper -z-10'
           >
             {stadion?.images.map((image , i) => (
-              <SwiperSlide key={i} className='w-full md:h-[500px] h-[30vh] '>
+              <SwiperSlide key={i} className='w-full  top-0 left-0 md:h-[500px] h-[30vh]'>
                 <CustomImage url={image} alt='jdjjd' fill />
               </SwiperSlide>
             ))}

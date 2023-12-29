@@ -79,7 +79,7 @@ function Comments({
       <div
         onClick={(e) => toggleComments(e)}
         id="commentsWrapper"
-        className={`fixed w-full h-[100vh]  transition-all duration-200  bg-black  bg-opacity-90   top-0 left-0 ${
+        className={`fixed w-full h-[100vh]  transition-all duration-200  bg-black  bg-opacity-90   top-0 left-0 right-0 bottom-0 ${
           openComments ? "" : "hidden"
         } `}
       ></div>
