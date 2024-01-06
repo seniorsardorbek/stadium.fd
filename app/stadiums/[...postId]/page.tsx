@@ -48,14 +48,14 @@ function Detailed ({ params: { postId } }: { params: { postId: string } }) {
       {loader ? (
         <Loader />
       ) : (
-        <section className=''>
+        <section className=' w-full '>
           <Swiper
             effect='fade'
             loop
             centeredSlides
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             autoplay={true}
-            className='mySwiper -z-10'
+            className='mySwiper'
           >
             {stadion?.images.map((image , i) => (
               <SwiperSlide key={i} className='w-full  md:h-[500px] h-[30vh]'>
