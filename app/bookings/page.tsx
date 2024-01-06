@@ -1,37 +1,27 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
+import { Loader } from '@/components'
+import NoToken from '@/components/noToken'
+import Segments from '@/components/segments'
+import { getData } from '@/utils/api'
+import { bookingFace } from '@/utils/types'
 import {
-  AccessTime,
-  Call,
+  formatDateWithMonthNames,
+  timeAgo
+} from '@/utils/utils'
+import {
   CancelOutlined,
-  CancelRounded,
   Check,
-  Games,
-  LocationOn,
-  Pending,
   PendingActions,
-  Person,
   Person2Outlined,
   PhoneInTalk,
   PlaceOutlined,
   PlayArrow,
   SmsFailed
 } from '@mui/icons-material'
-import { getData } from '@/utils/api'
-import { bookingFace } from '@/utils/types'
-import {
-  prettyDateFormat,
-  formatDateWithMonthNames,
-  timeAgo
-} from '@/utils/utils'
-import { Loader } from '@/components'
-import Link from 'next/link'
-import Segments from '@/components/segments'
-import NoToken from '@/components/noToken'
-import { teal } from '@mui/material/colors'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 function Bookings () {
   const router = useRouter()
@@ -54,7 +44,6 @@ function Bookings () {
       })
       .catch(err => {
         toast.warning(err.response.data.message)
-        console.log('hey')
         setLoading(false)
         if (err.response.status === 401) {
           router.push('login')
@@ -92,10 +81,10 @@ function Bookings () {
             <div className='flex justify-between'>
               <span className='text-xs text-gray-900 dark:text-white'>
                 <PlayArrow sx={{ width: '18px' }} />{' '}
-                {formatDateWithMonthNames(el.from)}{' '}
+                {formatDateWithMonthNames(el?.from)}{' '}
               </span>
               <button
-                onClick={() => deleteGame(el._id)}
+                onClick={() => deleteGame(el?._id)}
                 disabled={el.status === 'confirmed'}
                 className='rounded border text-xs px-3'
               >
@@ -105,27 +94,27 @@ function Bookings () {
             <div className='flex justify-between'>
               <span className='text-xs text-gray-900 dark:text-white'>
                 <Person2Outlined sx={{ width: '18px' }} />
-                {el.stadion.owner.name}
+                {el?.stadion?.owner?.name}
               </span>
               <a
-                href={`tel:+${el.stadion.callnumber}`}
+                href={`tel:+${el?.stadion?.callnumber}`}
                 className='text-xs text-gray-900 dark:text-white'
               >
                 <PhoneInTalk sx={{ width: '18px' }} />
-                {el.stadion.callnumber}
+                {el?.stadion?.callnumber}
               </a>
             </div>
             <span className='text-xs text-gray-900 dark:text-white'>
-              <PlaceOutlined sx={{ width: '18px' }} /> {el.stadion.destination}
+              <PlaceOutlined sx={{ width: '18px' }} /> {el?.stadion?.destination}
             </span>
             <div className='flex justify-between items-center'>
               <span className='text-xs text-gray-900 dark:text-white'>
-                {timeAgo(el.created_at)}
+                {timeAgo(el?.created_at)}
               </span>
               <span className='text-xs text-gray-900 dark:text-white border px-2 py-1 rounded-sm'>
-                {el.status === 'confirmed' && <Check sx={{width : '19px'}} />}
-                {el.status === 'pending' && <PendingActions sx={{width : '19px'}} />}
-                {el.status === 'rejected' && <SmsFailed sx={{width : '19px'}} />}
+                {el?.status === 'confirmed' && <Check sx={{width : '19px'}} />}
+                {el?.status === 'pending' && <PendingActions sx={{width : '19px'}} />}
+                {el?.status === 'rejected' && <SmsFailed sx={{width : '19px'}} />}
               </span>
             </div>
           </div>
