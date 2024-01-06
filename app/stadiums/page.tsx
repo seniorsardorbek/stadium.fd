@@ -1,16 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { StadionType } from "@/utils/types";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Card from "@/components/card";
-import Loader from "../../components/loader";
-import { useSelector } from "react-redux";
-import { getData } from "@/utils/api";
-import { haversineDistance } from "@/utils/utils";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import Segments from "@/components/segments";
+import { getData } from "@/utils/api";
+import { StadionType } from "@/utils/types";
+import { useSelector } from "react-redux";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Loader from "../../components/loader";
 
 const Stadions = () => {
   const [stadions, setStadions] = useState<StadionType[]>([]);
@@ -38,7 +35,6 @@ const Stadions = () => {
       })
       .catch((error) => {
         setLoader(false);
-        console.error("Error fetching data:", error);
       });
   }, [UserLoc]);
 

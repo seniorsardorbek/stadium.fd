@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 
 export const metadata: Metadata = {
-  title: 'MiniMatch.uz',
+  title: 'Minimatch',
   description: "O'zbekiston bo'yicha stadionlarni bron qilish tizimi, Minimatch bilan osonroq",
 }
 export default function Home() {

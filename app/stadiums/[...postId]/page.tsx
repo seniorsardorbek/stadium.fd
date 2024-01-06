@@ -13,6 +13,7 @@ import { Call, Size } from '../../../public/icons'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import CustomImage from '@/components/image'
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules'
+import { formatNumber } from '@/utils/utils'
 
 function Detailed ({ params: { postId } }: { params: { postId: string } }) {
   const [stadion, setStadions] = useState<StadionType>()
@@ -73,7 +74,7 @@ function Detailed ({ params: { postId } }: { params: { postId: string } }) {
                 <div className='w-1/2 flex flex-col gap-1'>
                   <span>
                     <AttachMoneyOutlinedIcon sx={{ width: '20px' }} />
-                    {stadion?.cost}so&apos;m{' '}
+                    {formatNumber(stadion?.cost || 0)}
                   </span>
                   <a
                     className='flex items-center '

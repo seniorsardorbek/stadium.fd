@@ -1,23 +1,22 @@
 'use client'
 import { getData } from '@/utils/api'
-import React, { FC, useEffect, useState } from 'react'
+import { bookingFace } from '@/utils/types'
 import {
   getCurrentFormattedDate,
   getMillisecondsForAllHours,
   hide,
   show
 } from '@/utils/utils'
-import { bookingFace } from '@/utils/types'
 import {
   Call,
   KeyboardArrowLeft,
   KeyboardArrowRight
 } from '@mui/icons-material'
-import { useSelector } from 'react-redux'
-import MiniLoader from './miniloader'
-import { toast } from 'react-toastify'
-import NoToken from './noToken'
 import { motion } from 'framer-motion'
+import React, { FC, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import MiniLoader from './miniloader'
 interface Props {
   stadionId?: string
 }
@@ -69,8 +68,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         toast.success(res.data?.msg)
       })
       .catch(err => {
-        console.log(err)
-        toast.error('Malumot togriligiga ishonch hosil qiling')
+        toast.error("Ma'lumot to'griligiga ishonch hosil qiling")
       })
       .finally(() => {
         setLoader(false)
@@ -142,85 +140,85 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         </div>
       </div>
       <div>
-        <div 
-        onClick={() => setvisibe(false)}
+        <div
+          onClick={() => setvisibe(false)}
           className={` bg-black  z-10 bg-opacity-60 ${
             visible ? 'fixed' : 'hidden'
           } top-0 left-0 w-full h-[100vh] flex items-center  justify-center`}
+        ></div>
+
+        <motion.div
+          animate={visible ? show : hide}
+          transition={{
+            ease: 'easeOut',
+            duration: 0.1,
+            x: { duration: 1 }
+          }}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 1.1 }}
+          drag='y'
+          dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
+          className='relative w-[80%] max-w-md max-h-full'
         >
-          <motion.div
-            animate={visible ? show : hide}
-            transition={{
-              ease: 'easeOut',
-              duration: 0.1,
-              x: { duration: 1 }
-            }}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 1.1 }}
-            drag='y'
-            dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
-            className='relative w-[80%] max-w-md max-h-full'
-          >
-            <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
-              <button
-                onClick={() => setvisibe(false)}
-                type='button'
-                className='absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white'
+          <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
+            <button
+              onClick={() => setvisibe(false)}
+              type='button'
+              className='absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white'
+            >
+              <svg
+                className='w-3 h-3'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 14 14'
               >
-                <svg
-                  className='w-3 h-3'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 14 14'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6'
-                  />
-                </svg>
-                <span className='sr-only'>Close modal</span>
-              </button>
-              <div className='px-6 py-6 lg:px-8 '>
-                <h3 className='mb-4 md:text-xl text-lg text-center  font-medium text-gray-700 dark:text-white'>
-                  So&apos;rov yuborish uchun formani to&apos;ldiring
-                </h3>
-                <form
-                  onSubmit={e => Bookingsubmit(e)}
-                  className='space-y-6'
-                  action='#'
-                >
-                  <div>
-                    <label
-                      htmlFor='n'
-                      className='block text-center mb-2 text-xs font-medium text-gray-700 dark:text-white'
-                    >
-                      <Call sx={{ width: '14px' }} /> Bog&apos;lanish uchun
-                      mobil raqam qoldiring (majburiy)
-                    </label>
-                    <input
-                      onChange={handlechange}
-                      type='string'
-                      name='callnumber'
-                      id='n'
-                      placeholder='+998913332003'
-                      className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
-                      required
-                    />
-                  </div>
-                  <button
-                    type='submit'
-                    className='w-full  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800'
+                <path
+                  stroke='currentColor'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  d='m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6'
+                />
+              </svg>
+              <span className='sr-only'>Close modal</span>
+            </button>
+            <div className='px-6 py-6 lg:px-8 '>
+              <h3 className='mb-4 md:text-xl text-lg text-center  font-medium text-gray-700 dark:text-white'>
+                So&apos;rov yuborish uchun formani to&apos;ldiring
+              </h3>
+              <form
+                onSubmit={e => Bookingsubmit(e)}
+                className='space-y-6'
+                action='#'
+              >
+                <div>
+                  <label
+                    htmlFor='n'
+                    className='block text-center mb-2 text-xs font-medium text-gray-700 dark:text-white'
                   >
-                    {loader ? <MiniLoader /> : 'Tasdiqlash'}
-                  </button>
-                </form>
-              </div>
+                    <Call sx={{ width: '14px' }} /> Bog&apos;lanish uchun mobil
+                    raqam qoldiring (majburiy)
+                  </label>
+                  <input
+                    onChange={handlechange}
+                    type='string'
+                    name='callnumber'
+                    id='n'
+                    placeholder='+998913332003'
+                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+                    required
+                  />
+                </div>
+                <button
+                  type='submit'
+                  className='w-full  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800'
+                >
+                  {loader ? <MiniLoader /> : 'Tasdiqlash'}
+                </button>
+              </form>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { Loader } from "@/components";
 import NotUserLoc from "@/components/notUserLoc";
 import { getData } from "@/utils/api";
 import { StadionType } from "@/utils/types";
+import { formatNumber } from "@/utils/utils";
 import {
   Clusterer,
   GeolocationControl,
@@ -16,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-// ... (imports remain the same)
+
 
 function Page() {
   const { UserLoc } = useSelector((state: any) => state.data);
@@ -68,6 +69,7 @@ function Page() {
             }}
           >
             <Map
+            
               className="w-full h-[77vh] absolute"
               defaultState={{
                 center: [UserLoc.lat || 41.311668, UserLoc.lng || 69.246089],
@@ -86,6 +88,9 @@ function Page() {
                   <Placemark 
                     onClick={() => handlePlacemarkClick(coordinates._id)}
                     key={index}
+                    properties={{ iconCaption: formatNumber(coordinates.cost) }}
+                  
+                  options={{ preset: "", iconColor: "red" }}
                     geometry={[coordinates.lat, coordinates.lng]}
                   />
                 ))}

@@ -1,13 +1,11 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
-import { Provider } from "react-redux";
-import { store } from "../utils/redux/store/store";
 import { Header, Loader } from "@/components";
 import Footer from "@/components/footer";
 import { usePathname } from "next/navigation";
-import "swiper/css";
+import { ReactNode, useEffect, useState } from "react";
+import { Provider } from "react-redux";
 import * as reactToastify from "react-toastify";
-import image  from '../statics/wallpaper1.jpg'
+import { store } from "../utils/redux/store/store";
 interface ProvidersProps {
   children: ReactNode;
 }
