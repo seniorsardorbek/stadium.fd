@@ -15,6 +15,7 @@ export const runtime = 'nodejs'
 export const preferredRegion = 'auto'
 export const maxDuration = 5
 export const metadata: Metadata = {
+  metadataBase : new URL('https://minimatch.uz'),
   title: 'Minimatch ',
   description: "O'zingizning stadioningizni xarid qiling",
 }

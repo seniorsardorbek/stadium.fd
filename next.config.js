@@ -3,9 +3,9 @@ const nextConfig = {
   crossOrigin : 'anonymous' ,
     images: {
         unoptimized: true ,
-        domains: ["94.228.112.211"], 
+        // domains: ["bd.minimatch.uz"], 
       },
-      // output: 'export',
+      output: 'export',
 }
 
 module.exports = nextConfig

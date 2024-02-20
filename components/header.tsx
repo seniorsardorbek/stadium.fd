@@ -36,21 +36,21 @@ function Header () {
   const dispatch = useDispatch()
   const router = useRouter()
   const { token } = useSelector((state: any) => state.data)
-  const socket = io('94.228.112.211:4000/events')
-  userdata &&
-    socket.on(`newMessage-${userdata._id}`, message => {
-      console.log('salom')
-      addNote({
-        title: 'Yangi xabar Minimtachdan!',
-        icon: 'https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no',
-        message: message,
-        duration: 4000,
-        native: true,
-        onClick: () => {
-          router.push('notifications')
-        }
-      })
-    })
+  // const socket = io('bd.minimatch.uz/events')
+  // userdata &&
+  //   socket.on(`newMessage-${userdata._id}`, message => {
+  //     console.log('salom')
+  //     addNote({
+  //       title: 'Yangi xabar Minimtachdan!',
+  //       icon: 'https://lh3.googleusercontent.com/a/ACg8ocJrXeJt9Pe2zbiwgcfG-HiYPcG7DKhaFDi1PDb4ZIXhuw=s360-c-no',
+  //       message: message,
+  //       duration: 4000,
+  //       native: true,
+  //       onClick: () => {
+  //         router.push('notifications')
+  //       }
+  //     }) 
+    // })
 
   useEffect(() => {
     getLocation()
@@ -259,7 +259,7 @@ function Header () {
           </li>
           <li onClick={toggleMenu}>
             <Link
-              href='/stadiums'
+              href='stadiums'
               className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
@@ -270,7 +270,7 @@ function Header () {
           </li>
           <li onClick={toggleMenu}>
             <Link
-              href='/bookings'
+              href='bookings'
               className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>

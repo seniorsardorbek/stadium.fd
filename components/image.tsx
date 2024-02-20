@@ -25,7 +25,7 @@ const CustomImage: FC<Props> = ({
     <>
       {fill ? (
         <Image
-          src={"http://94.228.112.211:4000/" + url}
+        src={"https://bd.minimatch.uz/" + url}
           alt={alt}
           className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${
             isLoading
@@ -33,19 +33,19 @@ const CustomImage: FC<Props> = ({
               : "scale-100 blur-0 grayscale-0"
           }}`}
           fill
-          priority={false}
+          priority={true}
           onLoadingComplete={() => setIsLoading(false)}
         />
       ) : (
         <Image
-          src={"http://94.228.112.211:4000/" + url}
+        src={"https://bd.minimatch.uz/" + url}
           alt={alt}
           className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${
             isLoading
               ? "scale-110 blur-2xl grayscale"
               : "scale-100 blur-0 grayscale-0"
           }}`}
-          priority={false}
+          priority={true}
           width={0}
           height={0}
           style={{width :'100%' , height :'auto'}}
