@@ -171,7 +171,7 @@ function Header () {
                 <ul className='py-2 ' aria-labelledby='user-menu-button'>
                   <li onClick={toggleDropdown}>
                     <Link
-                      href='/notifications'
+                      href='notifications.html'
                       className={`block px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white  dark:hover:bg-gray-600 dark:text-white dark:hover:text-white`}
                     >
                       <span className='visible md:hidden'>
@@ -254,7 +254,7 @@ function Header () {
           </li>
           <li onClick={toggleMenu}>
             <Link
-              href='/stadiums?page=1'
+              href='stadiums.html?page=1'
               className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
@@ -265,7 +265,7 @@ function Header () {
           </li>
           <li onClick={toggleMenu}>
             <Link
-              href='/bookings'
+              href='bookings.html'
               className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
@@ -276,7 +276,7 @@ function Header () {
           </li>
           <li onClick={toggleMenu}>
             <Link
-              href='/nearest'
+              href='nearest.html'
               className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
