@@ -1,11 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  crossOrigin : 'anonymous' ,
-    images: {
-        unoptimized: true ,
-        domains: ["bd.minimatch.uz"], 
-      }, 
-      output:'standalone'
-}
+/**
+ * @format
+ * @type {import('next').NextConfig}
+ */
 
-module.exports = nextConfig
+const nextConfig = {
+    output: 'standalone',
+};
+
+module.exports = nextConfig;
