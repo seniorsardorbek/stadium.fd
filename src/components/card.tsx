@@ -9,7 +9,7 @@ import { StadiumFace } from '../utils/types';
 import { haversineDistance } from '../utils/utils';
 
 const Card: FC<{ stadion: StadiumFace }> = ({ stadion }) => {
-    const { UserLoc } = useSelector((state :any ) => state.data);
+    const { userLoc } = useSelector((state :any ) => state.data);
     return (
         <Link href={`/stadiums/${stadion._id}`}  className="bg-white    boxShadow cursor-pointer  h-48  relative rounded-lg  w-72  m-2  " >
             <Carousel
@@ -26,9 +26,9 @@ const Card: FC<{ stadion: StadiumFace }> = ({ stadion }) => {
                     ))
                 }
             </Carousel>
-          {  UserLoc && <span className='text-[10px] text-white bg-black font-semibold absolute top-2 left-2' >
+          {  userLoc && <span className='text-[10px] text-white bg-black font-semibold absolute top-2 left-2' >
                 {
-                    haversineDistance(stadion.lat , stadion.lng , UserLoc.lat , UserLoc.lng  )
+                    haversineDistance(stadion.lat , stadion.lng , userLoc.lat , userLoc.lng  )
                 }km
             </span>}
             <div  className="flex w-full items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -">
