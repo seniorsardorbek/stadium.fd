@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import logo from '../statics/1111.png'
-import darkLogo from '../statics/logo-dark.png'
+import darkLogo from '../statics/logo.png'
 import { getData } from '../utils/api'
 import { UserFace } from '../utils/types'
 import { isLocalStorageAvailable, setUserLoc } from '../utils/redux/store/dataSlice'
@@ -25,7 +25,7 @@ import { hide, show } from '../utils/utils'
 function Header () {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
   const [isHeaderShrunk, setIsHeaderShrunk] = useState(false)
   const [userdata, setUserData] = useState<UserFace>()
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ function Header () {
   const { token } = useSelector((state: any) => state.data)
   // const socket = io('bd.minimatch.uz/events')
   // userdata &&
-  //   socket.on(`newMessage-${userdata._id}`, message => {
+  //   socket.on(`newMessage-${userdata._id}`, (message: any) => {
   //     console.log('salom')
   //     addNote({
   //       title: 'Yangi xabar Minimtachdan!',
@@ -45,7 +45,7 @@ function Header () {
   //         router.push('notifications')
   //       }
   //     }) 
-    // })
+  //   })
 
   useEffect(() => {
     getLocation()
@@ -121,7 +121,7 @@ function Header () {
     <header
       className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50]  border-gray-200  ${
         isHeaderShrunk
-          ? ' boxShadow  backdrop-blur-3xl bg-blue-50 dark:bg-slate-900 backdrop-opacity-50  '
+          ? ' boxShadow  backdrop-blur-3xl bg-gray-200 dark:bg-slate-900 backdrop-opacity-50  '
           : ''
       }`}
     >
@@ -134,12 +134,12 @@ function Header () {
           )}
         </Link>
         <div className='flex items-center md:order-2'>
-          <div
+          {/* <div
             onClick={toggleDarkMode}
             className={`tdnn ${!darkMode && 'day'}`}
           >
             <div className={`moon ${!darkMode && 'sun'}`}></div>
-          </div>
+          </div> */}
           {token ? (
             <>
               <button
@@ -244,7 +244,7 @@ function Header () {
           <li onClick={toggleMenu}>
             <Link
               href='/'
-              className={`flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent   text-gray-900 dark:text-white rounded `}
+              className={`flex items-center gap-3 px-2 bg-gray-200 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent   text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
                 <HomeOutlined />
@@ -255,7 +255,7 @@ function Header () {
           <li onClick={toggleMenu}>
             <Link
               href='/stadiums?page=1'
-              className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
+              className={`  flex items-center gap-3 px-2 bg-gray-200 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
                 <SportsSoccerOutlined />
@@ -266,7 +266,7 @@ function Header () {
           <li onClick={toggleMenu}>
             <Link
               href='/bookings'
-              className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
+              className={`  flex items-center gap-3 px-2 bg-gray-200 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
                 <LocalActivityOutlined />
@@ -277,7 +277,7 @@ function Header () {
           <li onClick={toggleMenu}>
             <Link
               href='/nearest'
-              className={`  flex items-center gap-3 px-2 bg-slate-100 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
+              className={`  flex items-center gap-3 px-2 bg-gray-200 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>
                 <NearMe />

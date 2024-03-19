@@ -13,7 +13,7 @@ export async function generateMetadata({ params: { postId } }: { params: { postI
       description :data.desciption,
       alternates :{
         canonical : `stadiums/${postId}`
-      }
+      }, 
     }
   } catch (error) {
     return {
@@ -24,6 +24,7 @@ export async function generateMetadata({ params: { postId } }: { params: { postI
  
 
 }
+
 export async function generateStaticParams(){
   const {data} =  await getData('stadions')
   if(!data.data) return []
@@ -32,6 +33,7 @@ export async function generateStaticParams(){
   }))
 
 }
+
 async function Detailed ({ params: { postId } }: { params: { postId: string } }) {
  const {data} =  await getData(`stadions/${postId}`)
   return (

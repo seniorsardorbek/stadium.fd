@@ -131,15 +131,15 @@ export function formatHoursFromTimestamp (timestamp: string): string {
   const formattedHours = `${hours < 10 ? '0' : ''}${hours}:00`
   return formattedHours
 }
-export function formatNumber(n: number): string {
+export function currency(n: number): string {
   if (n < 1e3) {
       return n.toString();
   } else if (n < 1e6) {
-      return (n / 1e3).toFixed(1) + ' K so\'m';
+      return (n / 1e3).toFixed(2) + ' K so\'m';
   } else if (n < 1e9) {
-      return (n / 1e6).toFixed(1) + ' M so\'m';
+      return (n / 1e6).toFixed(2) + ' M so\'m';
   } else if (n < 1e12) {
-      return (n / 1e9).toFixed(1) + ' B so\'m';
+      return (n / 1e9).toFixed(2) + ' B so\'m';
   } else {
       return n.toString();
   }

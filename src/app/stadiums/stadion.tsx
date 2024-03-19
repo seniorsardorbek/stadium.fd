@@ -8,7 +8,7 @@ import { Call, CommentTwoTone, Person, PhotoSizeSelectActual } from "@mui/icons-
 import ReactStars from "react-stars";
 import { StadiumFace } from "@/src/utils/types";
 import CustomImage from "@/src/components/image";
-import { formatNumber } from "@/src/utils/utils";
+import { currency } from "@/src/utils/utils";
 import { Size } from "@/src/public/icons";
 import { Bookings } from "@/src/components";
 import { SimpleMap } from "@/src/components/map";
@@ -29,10 +29,9 @@ const Stadion = ({stadium } :{stadium: StadiumFace}) => {
     return  <section className=' w-full '>
         <Swiper
           effect='fade'
-          loop
+          
           centeredSlides
           modules={[Navigation, Pagination, Scrollbar, A11y]}
-          autoplay={true}
           className='w-full  md:h-[500px] h-[30vh]'
         >
           {stadium.images.map((image , i) => (
@@ -42,7 +41,7 @@ const Stadion = ({stadium } :{stadium: StadiumFace}) => {
           ))}
         </Swiper>
         <div className=' duration-100 max-w-screen-xl ] w-full   mx-auto p-2  transition-all md:p-2 '>
-          <div className='flex flex-col dark:bg-gray-700 bg-blue-50 p-2 m-2 rounded-xl text-gray-700 dark:text-white text-sm md:text-base'>
+          <div className='flex flex-col dark:bg-gray-700 bg-gray-200 p-2 m-2 rounded-xl text-gray-700 dark:text-white text-sm md:text-base'>
             <p>
               <EditLocationOutlinedIcon sx={{ width: '20px' }} />{' '}
               {stadium?.destination}
@@ -51,7 +50,7 @@ const Stadion = ({stadium } :{stadium: StadiumFace}) => {
               <div className='w-1/2 flex flex-col gap-1'>
                 <span>
                   <AttachMoneyOutlinedIcon sx={{ width: '20px' }} />
-                  {formatNumber(stadium?.cost || 0)}
+                  {currency(stadium?.cost || 0)}
                 </span>
                 <a
                   className='flex items-center '
@@ -99,7 +98,7 @@ const Stadion = ({stadium } :{stadium: StadiumFace}) => {
                       count ? stadium.description.length : 100
                     ) || ' '
                 }}
-                className={`text-sm p-3 m-2 dark:bg-gray-700 bg-blue-50  text-gray-950 dark:text-white   transition-height ease-in-out  duration-100  rounded-xl  `}
+                className={`text-sm p-3 m-2 dark:bg-gray-700 bg-gray-200  text-gray-950 dark:text-white   transition-height ease-in-out  duration-100  rounded-xl  `}
               ></p>
             </div>
             <Bookings stadionId={stadium?._id!} />

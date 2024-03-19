@@ -3,7 +3,7 @@ function NoToken () {
   return (
     <main className='mt-16 flex flex-col items-center justify-center gap-2'>
       <h2 className='dark:text-white md:text-3xl text-lg text-center  p-5'>
-        Futbolist dasturga kirish esdan chiqibdi-ku!
+        Ma&apos;lumotlarni ko&apos;rish uchun oldin tizimga kiring!
       </h2>
       <div className='flex gap-5'>
         <Link

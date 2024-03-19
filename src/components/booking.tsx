@@ -104,7 +104,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         }
         onClick={() => bookingfunction(value)}
         disabled={booked || new Date() > givenDate}
-        className={` cursor-pointer border w-20 h-10 text-gray-950 dark:text-white  ${
+        className={` cursor-pointer border border-gray-900 w-20 h-10 text-gray-950 dark:text-white  ${
           new Date() > givenDate && ' text-red-900 dark:text-red-400 opacity-60'
         } ${booked && ' cursor-not-allowed  text-green-950 bg-red-700 '}`}
         data-value={value}
@@ -115,7 +115,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
   }
 
   return (
-    <div className='flex gap-3 dark:bg-gray-700 bg-blue-50 m-2 p-2  rounded-xl flex-col text-gray-700'>
+    <div className='flex gap-3 dark:bg-gray-700 bg-gray-200 m-2 p-2  rounded-xl flex-col text-gray-700'>
       <div className='flex items-center justify-center gap-4'>
         <button
           className='border-2  dark:text-white rounded-lg active:scale-95 '
@@ -195,21 +195,20 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                 <form
                   onSubmit={e => Bookingsubmit(e)}
                   className='space-y-6'
-                  action='#'
                 >
-                  <fieldset className='md:w-fit w-full '>
-                    <label htmlFor='phoneMask' className='text-white-dark'>
-                      Phone number
+                  <fieldset  className=' w-full flex justify-center items-center gap-3 '>
+                    <label htmlFor='phoneMask' className='block text-white-dark md:text-md  text-xs'>
+                      Mobil raqam 
                     </label>
                     <MaskedInput
                       onChange={e => handlechange(e)}
                       id='phoneMask'
                       type='text'
                       value={data?.callnumber}
-                      placeholder='Mobile nomer'
-                      className='form-input bg-gray-700   focus:outline-none rounded-md  text-md py-2 text-sm font-semibold  text-white w-fit'
+                      className='focus:outline-none rounded-md  text-md py-2 text-sm font-semibold  text-gray-900 w-[63%]'
                       defaultValue={'+998'}
                       name='callnumber'
+                      required={true}
                       mask={[
                         '+',
                         /[0-9]/,
