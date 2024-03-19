@@ -84,7 +84,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
       .finally(() => {
         setData(pre => ({
           ...data,
-          callnumber: ''
+          callnumber: '+998'
         }))
         setLoader(false)
         setvisibe(false)
@@ -197,9 +197,6 @@ const Bookings: FC<Props> = ({ stadionId }) => {
                   className='space-y-6'
                 >
                   <fieldset  className=' w-full flex justify-center items-center gap-3 '>
-                    <label htmlFor='phoneMask' className='block text-white-dark md:text-md  text-xs'>
-                      Mobil raqam 
-                    </label>
                     <MaskedInput
                       onChange={e => handlechange(e)}
                       id='phoneMask'

@@ -2,7 +2,7 @@
 import { Loader } from '@/src/components'
 import { getData } from '@/src/utils/api'
 import { StadiumFace } from '@/src/utils/types'
-import { formatNumber } from '@/src/utils/utils'
+import { currency } from '@/src/utils/utils'
 import {
   Clusterer,
   GeolocationControl,
@@ -83,7 +83,7 @@ function Page () {
                   <Placemark
                     onClick={() => handlePlacemarkClick(coordinates._id)}
                     key={index}
-                    properties={{ iconCaption: formatNumber(coordinates.cost) }}
+                    properties={{ iconCaption: currency(coordinates.cost) }}
                     options={{ preset: '', iconColor: 'red' }}
                     geometry={[coordinates.lat, coordinates.lng]}
                   />
