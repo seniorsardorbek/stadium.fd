@@ -5,7 +5,7 @@ import { textVariant, textVariant2 } from '../utils/motion'
 
 function Hero () {
   return (
-    <section className='w-full   '>
+    <section className='w-full'>
       <div className='flex items-center flex-col justify-center h-full'>
         <div className='mx-auto max-w-2xl py-60 md:py-36 px-4 md:px-0 sm:py-48 lg:py-40'>
           <div className='sm:mb-8 sm:flex sm:justify-center'>

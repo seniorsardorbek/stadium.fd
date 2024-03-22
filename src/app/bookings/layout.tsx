@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "Barcha o'yinlar"
 }
 function Layout ({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>
+  return <div className='flex-1'>{children}</div>
 }
 
 export default Layout

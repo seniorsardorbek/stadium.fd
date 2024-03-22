@@ -9,6 +9,20 @@ export function getMillisecondsForAllHours (date: any) {
   }
   return hoursArray
 }
+const monthNames = [
+  'Yanvar',
+  'Fevral',
+  'Mart',
+  'April',
+  'May',
+  'Iyun',
+  'Iyul',
+  'Avgust',
+  'Sentyabr',
+  'Oktyabr',
+  'Noyabr',
+  'Dekabr'
+]
 export function getCurrentFormattedDate (date: Date): string {
   const months = [
     "Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul",
@@ -39,22 +53,9 @@ export function prettyDateFormat (dateString: string) {
   return formattedDate
 }
 
-export function formatDateWithMonthNames (timestamp: number) {
+export function formatDateWithMonthNames (timestamp: string | number){
   const date = new Date(timestamp)
-  const monthNames = [
-    'Yanvar',
-    'Fevral',
-    'Mart',
-    'April',
-    'May',
-    'Iyun',
-    'Iyul',
-    'Avgust',
-    'Sentyabr',
-    'Oktyabr',
-    'Noyabr',
-    'Dekabr'
-  ]
+ 
   const day = date.getDate()
   const month = monthNames[date.getMonth()] // Get the month name
   const year = date.getFullYear()
@@ -132,11 +133,13 @@ export function timeAgo (timestamp: string) {
     return `${years} yil oldin`
   }
 }
-export function formatHoursFromTimestamp (timestamp: string): string {
-  const timestampObj = new Date(timestamp)
-  const hours = timestampObj.getHours()
-  const formattedHours = `${hours < 10 ? '0' : ''}${hours}:00`
-  return formattedHours
+export function formatDateFromTimestamp(timestamp: string): string {
+  const timestampObj = new Date(timestamp);
+  const monthIndex = timestampObj.getMonth();
+  const monthName = monthNames[monthIndex];
+  const hours = timestampObj.getHours();
+  const formattedHours = `${monthName} ${timestampObj.getDate()}`;
+  return formattedHours;
 }
 export function currency(n: number): string {
   if (n < 1e3) {
