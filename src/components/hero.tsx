@@ -25,7 +25,7 @@ function Hero () {
             initial='hidden'
             whileInView='show'
             viewport={{ once: true, amount: 0.25 }} className='text-3xl font-bold tracking-widest dark:text-white text-gray-900  sm:text-6xl'>
-              Mini-match O'zingizga qulay vaqtni band qiling!
+              Mini-match O&apos;zingizga qulay vaqtni band qiling!
             </motion.h1>
             <motion.p
             variants={textVariant(0.5)}

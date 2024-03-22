@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CommentFace } from "../utils/types";
-import { getData } from "../utils/api";
+import { api } from "../utils/api";
 import { timeAgo } from "../utils/utils";
 
 function Comments({
@@ -28,7 +28,7 @@ function Comments({
   }, [stadiumId, openComments]);
   function getComments() {
     setLoading(true);
-    getData(`comments/${stadiumId}`)
+    api(`comments/${stadiumId}`)
       .then((res) => {
         setComments(res.data);
         setLoading(false);
@@ -54,7 +54,7 @@ function Comments({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    getData
+    api
       .post(`comments/${stadiumId}`, data, {
         headers: { authorization: `Bearer ${token}` },
       })
@@ -82,7 +82,7 @@ function Comments({
         } `}
       ></div>
       <div
-        className={`z-[1000]  scrollbar-hidden   overflow-visible transition-all duration-200 bottom-0 pb-16 rounded-t-3xl mx-auto max-h-[75vh] dark:bg-gray-700 pt-6 bg-blue-50  fixed  w-full h-0  ${
+        className={`z-[1000]  scrollbar-hidden   overflow-visible transition-all duration-200 bottom-0 pb-16 rounded-t-3xl mx-auto max-h-[75vh] dark:bg-gray-700 pt-6 bg-gray-100  fixed  w-full h-0  ${
           openComments
             ? "h-fit min-h-[20vh]  translate-y-0 overflow-y-scroll"
             : "translate-y-full"
@@ -98,11 +98,11 @@ function Comments({
                     {
                       <div className="flex  flex-col w-[90%]">
                         <div className="flex text-xs justify-between  text-gray-500 gap-1">
-                          <a href={`tel:${el.commentBy.phonenumber}`}>
-                            {el.commentBy.name.slice( 0 , 25)}
-                          </a><time>{timeAgo(el.created_at)}</time>
+                          <a href={`tel:${el?.commentBy?.phonenumber}`}>
+                            {el?.commentBy?.name.slice( 0 , 25)}
+                          </a><time>{timeAgo(el?.created_at)}</time>
                         </div>
-                        <p>{el.comment}</p>
+                        <p>{el?.comment}</p>
                       </div>
                     }
                 </div>
@@ -113,12 +113,12 @@ function Comments({
       </div>
       <form
         onSubmit={(e) => handleSubmit(e)}
-        className={` fixed bottom-0 flex w-full px-6 py-4 dark-text-white z-[1200] dark:bg-gray-700 bg-blue-50  ${
+        className={` fixed bottom-0 flex w-full px-6 py-4 dark-text-white z-[1200] dark:bg-gray-700 bg-gray-100  ${
           openComments ? "" : "hidden"
         } `}
       >
         <div className="relative z-0 w-full   px-4 group">
-          <input value={data.comment}
+          <input value={data?.comment}
             onChange={(e) => handleChange(e)}
             type="text"
             name="comment"
@@ -131,7 +131,7 @@ function Comments({
             htmlFor="floating_email"
             className=" flex peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-0 scale-75 top-3 -z-10 origin-[0] peer-focus:left-6 peer-focus:text-gray-600 peer-focus:dark:text-gray-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y- peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            {token?  'Sharh qoldiring...' :"Oldin tizimga kiring" }
+            {token?  'Izoh qoldiring...' :"Oldin tizimga kiring" }
           </label>
         </div>
         <button
@@ -148,9 +148,4 @@ function Comments({
 
 export default Comments;
 
-{
-  /* <div
 
->
-</div> */
-}

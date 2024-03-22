@@ -2,7 +2,7 @@
 import { Loader } from '@/src/components'
 import Card from '@/src/components/card'
 import Segments from '@/src/components/segments'
-import { getData } from '@/src/utils/api'
+import { api } from '@/src/utils/api'
 import { ResponseFace, StadiumFace } from '@/src/utils/types'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -19,7 +19,7 @@ const Stadions = () => {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get('page') || '1')
   useEffect(() => {
-    getData(
+    api(
       `stadions${
         userLoc
           ? `?nearby[lat]=${41.277052}&nearby[lng]=${69.233813}&nearby[maxDistance]=1000`

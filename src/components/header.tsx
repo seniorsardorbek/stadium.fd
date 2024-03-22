@@ -18,10 +18,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import logo from '../statics/1111.png'
 import darkLogo from '../statics/logo.png'
-import { getData } from '../utils/api'
+import { api } from '../utils/api'
 import { UserFace } from '../utils/types'
-import { isLocalStorageAvailable, setUserLoc } from '../utils/redux/store/dataSlice'
+import {
+  isLocalStorageAvailable,
+  setUserLoc
+} from '../utils/redux/store/dataSlice'
 import { hide, show } from '../utils/utils'
+import { textSlicer } from '../utils/textslicer'
 function Header () {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -44,13 +48,13 @@ function Header () {
   //       onClick: () => {
   //         router.push('notifications')
   //       }
-  //     }) 
+  //     })
   //   })
 
   useEffect(() => {
     getLocation()
     token &&
-      getData('users/me', { headers: { authorization: `Bearer ${token}` } })
+      api('users/me', { headers: { authorization: `Bearer ${token}` } })
         .then(res => {
           setUserData(res.data.data)
         })
@@ -77,7 +81,6 @@ function Header () {
       setIsHeaderShrunk(isScrolled)
     }
 
-    // Attach the event listener when the component mounts
     window.addEventListener('scroll', handleScroll)
 
     // Clean up the event listener when the component unmounts
@@ -144,9 +147,10 @@ function Header () {
             <>
               <button
                 onClick={toggleDropdown}
-                className='block px-1 py-1 rounded border text-sm text-gray-900  hover:text-white  dark:text-white  mr-1'
+                className='block px-1 py-1 rounded border border-gray-950 text-sm text-gray-900    dark:text-white  mr-1'
               >
-                {userdata?.name} <Bolt sx={{ width: '20px' }} />
+                {textSlicer(userdata?.name || '', 20)}{' '}
+                <Bolt sx={{ width: '20px' }} />
               </button>
               <motion.div
                 animate={isDropdownOpen ? show : hide}
@@ -181,8 +185,11 @@ function Header () {
                     </Link>
                   </li>
                   <li>
-                    <button onClick={sighout} className='block w-full text-start px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white'>
-                      <LogoutOutlined/> Chiqish
+                    <button
+                      onClick={sighout}
+                      className='block w-full text-start px-4 py-2 text-sm text-gray-900 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-white dark:hover:text-white'
+                    >
+                      <LogoutOutlined /> Chiqish
                     </button>
                   </li>
                 </ul>

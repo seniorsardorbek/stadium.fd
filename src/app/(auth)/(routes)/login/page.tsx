@@ -1,6 +1,6 @@
 "use client";
 import MiniLoader from "@/src/components/miniloader";
-import { getData } from "@/src/utils/api";
+import { api } from "@/src/utils/api";
 import { setToken, setUserData } from "@/src/utils/redux/store/dataSlice";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -17,7 +17,7 @@ const Login = () => {
   const handeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    getData
+    api
       .post("/auth/login", data)
       .then((res) => {
         if (res.status === 200) {

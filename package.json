@@ -37,8 +37,10 @@
     "react-verification-code-input": "^1.2.9",
     "react-verification-input": "^4.0.0",
     "socket.io-client": "^4.7.2",
+    "sweetalert2": "^11.10.6",
     "swiper": "^11.0.5",
-    "utf-8-validate": "^5.0.10"
+    "utf-8-validate": "^5.0.10",
+    "yet-another-react-lightbox": "^3.17.1"
   },
   "devDependencies": {
     "@types/google-map-react": "^2.1.8",

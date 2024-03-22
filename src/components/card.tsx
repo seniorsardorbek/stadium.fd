@@ -7,6 +7,7 @@ import ReactStars from 'react-stars'
 import { useSelector } from 'react-redux'
 import { StadiumFace } from '../utils/types'
 import { currency, haversineDistance } from '../utils/utils'
+import { textSlicer } from '../utils/textslicer'
 
 const Card: FC<{ stadion: StadiumFace }> = ({ stadion }) => {
   const { userLoc } = useSelector((state: any) => state.data)
@@ -32,27 +33,26 @@ const Card: FC<{ stadion: StadiumFace }> = ({ stadion }) => {
       {userLoc && (
         <span className='text-[10px] text-white bg-black font-semibold absolute top-2 left-2'>
           {haversineDistance(
-            stadion.lat,
-            stadion.lng,
-            userLoc.lat,
-            userLoc.lng
+            stadion?.lat,
+            stadion?.lng,
+            userLoc?.lat,
+            userLoc?.lng
           )}
           km
         </span>
       )}
       <div className='flex w-full items-center absolute  bottom-0 bg-gradient-to-t from-gray-950 to-transparent text-white rounded-b-lg   justify-between p-3 text-xs -'>
         <p className='w-[100%]'>
-          {stadion.destination.substring(0, 50)}
-          {stadion?.destination?.length > 50 && '...'}
+        {textSlicer(stadion.destination , 50)}
         </p>
         <div className='flex  flex-col justify-end'>
           <span className=' whitespace-nowrap n bg-gray-700 text-white text-[10px] font-medium  px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-white'>
-            {currency(stadion.cost)}
+            {currency(stadion?.cost)}
           </span>
           <ReactStars
             count={3}
             className='text-gray flex  justify-end'
-            value={Number(stadion.rate)}
+            value={Number(stadion?.rate)}
             half
             edit={false}
           />

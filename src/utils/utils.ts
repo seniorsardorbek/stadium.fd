@@ -111,7 +111,7 @@ export function timeAgo (timestamp: string) {
   const month = 30 * day
   const year = 365 * day
   if (timeDifference < minute) {
-    return 'Just now'
+    return 'Hozirgina'
   } else if (timeDifference < hour) {
     const minutes = Math.floor(timeDifference / minute)
     return `${minutes} daqiqa oldin`

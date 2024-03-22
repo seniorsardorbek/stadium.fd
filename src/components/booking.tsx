@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import React, { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { getData } from '../utils/api'
+import { api } from '../utils/api'
 import { BookingFace } from '../utils/types'
 import {
   getCurrentFormattedDate,
@@ -56,7 +56,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
   var hoursInMilliseconds = getMillisecondsForAllHours(date)
 
   useEffect(() => {
-    getData(`bookings/${stadionId}`).then(data => {
+    api(`bookings/${stadionId}`).then(data => {
       setbookings(data.data)
     })
   }, [stadionId])
@@ -68,7 +68,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
   function Bookingsubmit (e: React.FormEvent) {
     e.preventDefault()
     setLoader(true)
-    getData
+    api
       .post('bookings', data, { headers: { authorization: `Bearer ${token}` } })
       .then(res => {
         toast.success(res.data?.msg)

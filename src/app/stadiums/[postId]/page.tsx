@@ -1,9 +1,9 @@
-import { getData } from "@/src/utils/api";
+import { api } from "@/src/utils/api";
 import Stadion from "../stadion";
 
 export async function generateMetadata({ params: { postId } }: { params: { postId: string } }){
   try {
-    const {data} =  await getData(`stadions/${postId}`)
+    const {data} =  await api(`stadions/${postId}`)
     if(!data) return{
       title :"Stadion topilmadi...",
       description :"Stadion topilmadi birozdan so'ng urinib ko'ring"
@@ -26,7 +26,7 @@ export async function generateMetadata({ params: { postId } }: { params: { postI
 }
 
 export async function generateStaticParams(){
-  const {data} =  await getData('stadions')
+  const {data} =  await api('stadions')
   if(!data.data) return []
   return data.data.map((post :any)=>({
     postId :post._id
@@ -35,7 +35,7 @@ export async function generateStaticParams(){
 }
 
 async function Detailed ({ params: { postId } }: { params: { postId: string } }) {
- const {data} =  await getData(`stadions/${postId}`)
+ const {data} =  await api(`stadions/${postId}`)
   return (
     <main className="flex-1 flex-wrap">
       <Stadion stadium={data}/>

@@ -2,7 +2,7 @@
 import { Loader } from '@/src/components'
 import NoToken from '@/src/components/noToken'
 import Segments from '@/src/components/segments'
-import { getData } from '@/src/utils/api'
+import { api } from '@/src/utils/api'
 import { EventsFace } from '@/src/utils/types'
 import { formatHoursFromTimestamp, timeAgo } from '@/src/utils/utils'
 import { Check, DoneAll } from '@mui/icons-material'
@@ -25,7 +25,7 @@ function Notifications () {
 
   const getEvents = () => {
     setLoading(true)
-    getData(`eventss`, { headers: { authorization: `Bearer ${token}` } })
+    api(`eventss/`, { headers: { authorization: `Bearer ${token}` } })
       .then(res => {
         setEvents(res.data)
         setLoading(false)
@@ -40,7 +40,7 @@ function Notifications () {
   }
 
   const markAsRead = (id: string) => {
-    getData
+    api
       .put(
         `eventss/${id}`,
         {},
@@ -54,14 +54,14 @@ function Notifications () {
       })
   }
 
-  function Notif ({ el }: { el:EventsFace }) {
+  function Notif ({ el  , prev}: { el:EventsFace  ,prev: EventsFace  }) {
     return (
       <div
         onClick={() => !el.viewed && markAsRead(el._id)}
         className='flex mx-auto cursor-pointer'
       >
         <p className='text-[#3b3f5c] dark:text-gray-300 min-w-[80px] max-w-[180px] text-base font-semibold p-2.5 py-8'>
-          {formatHoursFromTimestamp(el.created_at)}
+          { formatHoursFromTimestamp(el?.created_at) == formatHoursFromTimestamp(prev?.created_at) ?  "" : formatHoursFromTimestamp(el?.created_at)}
         </p>
         <div className='relative before:absolute before:left-1/2 before:-translate-x-1/2 before:top-[15px] before:w-2.5 before:h-2.5 before:border-2 before: before:rounded-full after:absolute after:left-1/2 after:-translate-x-1/2 after:top-[25px] after:-bottom-[15px] after:w-0 after:h-auto after:border-l-2  after:rounded-full'></div>
         <div className='p-2.5 self-center ltr:ml-2.5 rtl:ltr:mr-2.5 rtl:ml-2.5'>
@@ -76,7 +76,7 @@ function Notifications () {
             )}
           </p>
           <p className='text-gray-500 text-xs font-bold self-center min-w-[100px] max-w-[100px]'>
-            {timeAgo(el.created_at)}
+            {timeAgo(el?.created_at)}
           </p>
         </div>
       </div>
@@ -97,7 +97,7 @@ function Notifications () {
           {loading ? (
             <Loader />
           ) : (
-            events?.map((el, i) => <Notif key={i} el={el} />)
+            events?.map((el, i) => <Notif key={i} el={el} prev={events[i+1]} />)
           )}
         </div>
       </div>

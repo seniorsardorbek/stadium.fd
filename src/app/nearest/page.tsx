@@ -1,6 +1,6 @@
 'use client'
 import { Loader } from '@/src/components'
-import { getData } from '@/src/utils/api'
+import { api } from '@/src/utils/api'
 import { StadiumFace } from '@/src/utils/types'
 import { currency } from '@/src/utils/utils'
 import {
@@ -23,7 +23,7 @@ function Page () {
 
   useEffect(() => {
     if ( loader) {
-      getData(
+      api(
         `stadions${
           userLoc
             ? `?nearby[lat]=${userLoc?.lat}&nearby[lng]=${userLoc?.lng}&nearby[maxDistance]=1000`
