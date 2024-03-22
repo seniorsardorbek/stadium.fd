@@ -104,8 +104,8 @@ const Bookings: FC<Props> = ({ stadionId }) => {
         }
         onClick={() => bookingfunction(value)}
         disabled={booked || new Date() > givenDate}
-        className={` cursor-pointer border border-gray-900 w-20 h-10 text-gray-950 dark:text-white  ${
-          new Date() > givenDate && ' text-red-900 dark:text-red-400 opacity-60'
+        className={` cursor-pointer border border-gray-900 md:w-24 w-20 h-10 text-gray-950 dark:text-white  ${
+          new Date() > givenDate && ' text-red-900 dark:text-red-400 '
         } ${booked && ' cursor-not-allowed  text-green-950 bg-red-700 '}`}
         data-value={value}
       >
@@ -118,7 +118,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
     <div className='flex gap-3 dark:bg-gray-700 bg-gray-200 m-2 p-2  rounded-xl flex-col text-gray-700'>
       <div className='flex items-center justify-center gap-4'>
         <button
-          className='border-2  dark:text-white rounded-lg active:scale-95 '
+          className='border-2 border-gray-900  dark:text-white rounded-lg active:scale-95 '
           onClick={handlePreDayClick}
         >
           <KeyboardArrowLeft sx={{ rotate: '180' }} />
@@ -127,7 +127,7 @@ const Bookings: FC<Props> = ({ stadionId }) => {
           {currentFormattedDate}
         </h1>
         <button
-          className='border-2  dark:text-white rounded-lg active:scale-95'
+          className='border-2 border-gray-900 dark:text-white rounded-lg active:scale-95'
           onClick={handleNextDayClick}
         >
           <KeyboardArrowRight />

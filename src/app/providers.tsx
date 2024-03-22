@@ -29,6 +29,7 @@ function Providers({ children }: ProvidersProps) {
         <Provider store={store}>
           {shouldShowHeaderAndFooter && <Header />}
           {children} 
+          {shouldShowHeaderAndFooter && <Footer />}
           <reactToastify.ToastContainer
             autoClose={3000}
             position={"top-right"}

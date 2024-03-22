@@ -37,7 +37,7 @@ export async function generateStaticParams(){
 async function Detailed ({ params: { postId } }: { params: { postId: string } }) {
  const {data} =  await getData(`stadions/${postId}`)
   return (
-    <main className="flex flex-wrap">
+    <main className="flex-1 flex-wrap">
       <Stadion stadium={data}/>
     </main>
    

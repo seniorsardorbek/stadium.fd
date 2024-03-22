@@ -66,7 +66,7 @@ const Stadions = () => {
                 ? '/stadiums?page=1'
                 : `/stadiums?page=${page - 1}`
             }
-            className='flex justify-center font-semibold p-2 rounded-full transition bg-white text-black  hover:bg-primary dark:text-white dark:bg-[#191e3a]  hover:bg-blue-950 dark:hover:bg-blue-950'
+            className='flex justify-center font-semibold p-2 rounded-full transition bg-white text-black  hover:bg-primary dark:text-white dark:bg-[#191e3a]  hover:bg-gray-100 dark:hover:bg-blue-950'
           >
             <svg
               width='24'
@@ -89,7 +89,7 @@ const Stadions = () => {
         <li>
           <button
             type='button'
-            className={`flex justify-center font-semibold p-2  w-10 h-10 rounded-full transition bg-white text-black  hover:bg-primary dark:text-white dark:bg-[#191e3a]  hover:bg-blue-950 dark:hover:bg-blue-950`}
+            className={`flex justify-center font-semibold p-2  w-10 h-10 rounded-full transition bg-white text-black  hover:bg-gray-100 dark:hover:bg-blue-950`}
           >
             {page}
           </button>
@@ -102,7 +102,7 @@ const Stadions = () => {
                 ? `/stadiums?page=${page + 1}`
                 : `/stadiums?page=${page}`
             }
-            className='flex justify-center font-semibold p-2 rounded-full transition bg-white text-black  hover:bg-primary dark:text-white dark:bg-[#191e3a]  hover:bg-blue-950 dark:hover:bg-blue-950'
+            className='flex justify-center font-semibold p-2 rounded-full transition bg-white text-black  hover:bg-primary dark:text-white dark:bg-[#191e3a]  hover:bg-gray-100 dark:hover:bg-blue-950'
           >
             <svg
               width='20'

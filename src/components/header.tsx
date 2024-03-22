@@ -119,7 +119,7 @@ function Header () {
   }
   return (
     <header
-      className={`transition-all md:transition-none fixed  w-full top-0 duration-200  z-[50]  border-gray-200  ${
+      className={`transition-all md:transition-none fixed   w-full top-0 duration-200  z-[50]  border-gray-200  ${
         isHeaderShrunk
           ? ' boxShadow  backdrop-blur-3xl bg-gray-200 dark:bg-slate-900 backdrop-opacity-50  '
           : ''
@@ -254,7 +254,7 @@ function Header () {
           </li>
           <li onClick={toggleMenu}>
             <Link
-              href='/stadiums?page=1'
+              href='/stadiums'
               className={`  flex items-center gap-3 px-2 bg-gray-200 dark:bg-slate-950  h-10 md:h-auto md:bg-transparent md:dark:bg-transparent  text-gray-900 dark:text-white rounded `}
             >
               <span className='visible md:hidden'>

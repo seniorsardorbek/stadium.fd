@@ -10,10 +10,17 @@ export function getMillisecondsForAllHours (date: any) {
   return hoursArray
 }
 export function getCurrentFormattedDate (date: Date): string {
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0') // Month is 0-based
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
+  const months = [
+    "Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul",
+    "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"
+  ];
+  
+  const year = date.getFullYear();
+  const monthIndex = date.getMonth();
+  const monthName = months[monthIndex];
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${day} ${monthName} ${year}`;
 }
 
 export function prettyDateFormat (dateString: string) {

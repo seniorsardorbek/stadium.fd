@@ -99,7 +99,7 @@ const Stadion = ({stadium } :{stadium: StadiumFace}) => {
                     ) || ' '
                 }}
                 className={`text-sm p-3 m-2 dark:bg-gray-700 bg-gray-200  text-gray-950 dark:text-white   transition-height ease-in-out  duration-100  rounded-xl  `}
-              ></p>
+              ></p> 
             </div>
             <Bookings stadionId={stadium?._id!} />
           </div>
