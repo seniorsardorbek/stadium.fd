@@ -1,5 +1,5 @@
 import { api } from "@/src/utils/api";
-import Stadion from "../stadion";
+import Stadion from "./stadion";
 
 export async function generateMetadata({ params: { postId } }: { params: { postId: string } }){
   try {

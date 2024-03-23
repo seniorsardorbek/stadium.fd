@@ -28,7 +28,7 @@ function Page () {
           userLoc
             ? `?nearby[lat]=${userLoc?.lat}&nearby[lng]=${userLoc?.lng}&nearby[maxDistance]=1000`
             : ''
-        }`,
+        }${'&page[limit]=1000'}`,
         {
           params: {
             'sort[by]': 'rate',

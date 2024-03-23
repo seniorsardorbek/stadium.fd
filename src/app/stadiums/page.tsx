@@ -12,7 +12,10 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const Stadions = () => {
   const [stadions, setStadions] = useState<ResponseFace<StadiumFace>>({
-    data: []
+    offset: 0,
+    limit: 10,
+    data: [],
+    total: 0
   })
   const [loader, setLoader] = useState<Boolean>(true)
   const { userLoc } = useSelector((state: any) => state.data)
@@ -41,7 +44,6 @@ const Stadions = () => {
       .catch(error => {
         setLoader(false)
       })
-    window.document.title = 'Stadionlar - Minimatch'
   }, [userLoc, page])
 
   return (
