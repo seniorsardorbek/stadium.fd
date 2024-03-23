@@ -61,8 +61,8 @@ export interface EventsFace {
 }
 
 export interface  ResponseFace<T> {
-    total ?: number
-    offset?: number
-    limit?: number
-    data?: T[]
+    total : number
+    offset: number
+    limit: number
+    data: T[]
 }

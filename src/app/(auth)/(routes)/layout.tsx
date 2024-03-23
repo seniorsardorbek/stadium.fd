@@ -1,8 +1,12 @@
+import { Metadata } from 'next'
 import React from 'react'
 
+export const metadata: Metadata = {
+  title: "Kirish"
+}
 function RootLayout({children} : {children :React.ReactNode}) {
   return (
-    <main>{children}</main>
+    <main className='flex-1'>{children}</main>
   )
 }
 

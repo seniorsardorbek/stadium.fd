@@ -1,12 +1,18 @@
 'use client'
 import { Loader } from '@/src/components'
+import MiniLoader from '@/src/components/miniloader'
+import { NotificationCard } from '@/src/components/notificationCard'
 import NoToken from '@/src/components/noToken'
 import Segments from '@/src/components/segments'
 import { api } from '@/src/utils/api'
-import { EventsFace } from '@/src/utils/types'
-import { formatDateWithMonthNames, formatDateFromTimestamp, timeAgo } from '@/src/utils/utils'
+import { EventsFace, ResponseFace } from '@/src/utils/types'
+import {
+  formatDateWithMonthNames,
+  formatDateFromTimestamp,
+  timeAgo
+} from '@/src/utils/utils'
 import { Check, DoneAll } from '@mui/icons-material'
-import { useRouter } from 'next/navigation'; // Correct the import for useRouter
+import { useRouter } from 'next/navigation' // Correct the import for useRouter
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -15,19 +21,54 @@ function Notifications () {
   const router = useRouter()
   const { token } = useSelector((state: any) => state.data)
   const [loading, setLoading] = useState<boolean>(true)
-  const [events, setEvents] = useState<EventsFace[]>([])
+  const [events, setEvents] = useState<ResponseFace<EventsFace>>({
+    offset: 0,
+    limit: 20,
+    data: [],
+    total: 0
+  })
+  const [page, setPage] = useState<any>({ offset: 0, limit: 20 })
 
   useEffect(() => {
-    if (token && loading) {
+    if (token) {
       getEvents()
     }
-  }, [loading, token])
+  }, [token, page.offset])
+  const handleScroll = () => {
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop
+    const scrollHeight =
+      (document.documentElement && document.documentElement.scrollHeight) ||
+      document.body.scrollHeight
+    const clientHeight =
+      document.documentElement.clientHeight || window.innerHeight
+    const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight
+
+    if (scrolledToBottom && !loading) {
+      if ((events?.offset + 1) * events?.limit < events?.total) {
+        setPage((prevPage: any) => ({
+          ...prevPage,
+          offset: prevPage.offset + 1
+        }))
+      }
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
 
   const getEvents = () => {
     setLoading(true)
-    api(`eventss?page[limit]=5`, { headers: { authorization: `Bearer ${token}` } })
+    api(
+      `events?${`page[offset]=${page.offset}`}${`&page[limit]=${page.limit}`}`,
+      {
+        headers: { authorization: `Bearer ${token}` }
+      }
+    )
       .then(res => {
-        setEvents(res.data)
+        setEvents({ ...res.data, data: [...events.data, ...res.data.data] })
         setLoading(false)
       })
       .catch(err => {
@@ -46,41 +87,10 @@ function Notifications () {
         {},
         { headers: { authorization: `Bearer ${token}` } }
       )
-      .then(() => {
-  
-      })
+      .then(() => {})
       .catch(res => {
         toast.error(res.data.message)
       })
-  }
-
-  function Notif ({ el  , prev}: { el:EventsFace  ,prev: EventsFace  }) {
-    return (
-      <div
-        onClick={() => !el.viewed && markAsRead(el._id)}
-        className='flex mx-auto cursor-pointer'
-      >
-        <p className='text-[#3b3f5c] dark:text-gray-300 min-w-[80px] max-w-[180px] text-base font-semibold p-2.5 py-8'>
-          { formatDateFromTimestamp(el?.created_at) == formatDateFromTimestamp(prev?.created_at) ?  "" : formatDateFromTimestamp(el?.created_at)}
-        </p>
-        <div className='relative before:absolute before:left-1/2 before:-translate-x-1/2 before:top-[15px] before:w-2.5 before:h-2.5 before:border-2 before: before:rounded-full after:absolute after:left-1/2 after:-translate-x-1/2 after:top-[25px] after:-bottom-[15px] after:w-0 after:h-auto after:border-l-2  after:rounded-full'></div>
-        <div className='p-2.5 self-center ltr:ml-2.5 rtl:ltr:mr-2.5 rtl:ml-2.5'>
-          <p className='text-[#3b3f5c] dark:text-gray-300 font-semibold text-[13px]'>
-            {el?.message} tomonidan {el?.eventBy?.name}
-          </p>
-          <p>
-            {!el?.viewed ? (
-              <Check sx={{ color: 'white', width: '14px ' }} />
-            ) : (
-              <DoneAll sx={{ color: 'white', width: '14px ' }} />
-            )}
-          </p>
-          <p className='text-gray-500 text-xs font-bold self-center min-w-[100px] max-w-[100px]'>
-            {formatDateWithMonthNames(el?.created_at)}
-          </p>
-        </div>
-      </div>
-    )
   }
 
   if (!token) {
@@ -91,14 +101,18 @@ function Notifications () {
     <main className='duration-100 flex-1 max-w-screen-xl min-h-[65vh] w-full   mx-auto p-2  transition-all mt-12 md:p-5 '>
       <div>
         <Segments currentPage={['Bildirishnomalar']} />
-      </div> 
+      </div>
       <div className='mb-5 mx-auto'>
         <div className='max-w-[900px] mx-auto'>
-          {loading ? (
-            <Loader />
-          ) : (
-            events?.map((el, i) => <Notif key={i} el={el} prev={events[i+1]} />)
-          )}
+          {events?.data?.map((el, i) => (
+            <NotificationCard
+              key={i}
+              el={el}
+              markAsRead={markAsRead}
+              prev={events?.data[i + 1]}
+            />
+          ))}
+          {loading && <MiniLoader />}
         </div>
       </div>
     </main>

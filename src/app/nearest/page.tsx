@@ -22,7 +22,7 @@ function Page () {
   const history = useRouter()
 
   useEffect(() => {
-    if ( loader) {
+    if (loader) {
       api(
         `stadions${
           userLoc
@@ -54,45 +54,43 @@ function Page () {
 
   return (
     <main className='mt-16 relative w-full'>
-      { 
-        loader ? (
-          <Loader />
-        ) : (
-          <YMaps
-            query={{
-              suggest_apikey: 'd6731aa6-00f1-4319-9583-87938fbc50f9',
-              apikey: 'd6731aa6-00f1-4319-9583-87938fbc50f9'
+      {loader ? (
+        <Loader />
+      ) : (
+        <YMaps
+          query={{
+            suggest_apikey: 'd6731aa6-00f1-4319-9583-87938fbc50f9',
+            apikey: 'd6731aa6-00f1-4319-9583-87938fbc50f9'
+          }}
+        >
+          <Map
+            className='w-full h-[77vh] absolute'
+            defaultState={{
+              center: [userLoc.lat, userLoc.lng],
+              zoom: 14
             }}
           >
-            <Map
-              className='w-full h-[77vh] absolute'
-              defaultState={{
-                center: [userLoc.lat , userLoc.lng ],
-                zoom: 14
+            <ZoomControl options={{ zoomDuration: 400 }} />
+            <GeolocationControl />
+            <Clusterer
+              options={{
+                preset: 'islands#invertedVioletClusterIcons',
+                groupByCoordinates: false
               }}
             >
-              <ZoomControl options={{ zoomDuration: 400 }} />
-              <GeolocationControl />
-              <Clusterer
-                options={{
-                  preset: 'islands#invertedVioletClusterIcons',
-                  groupByCoordinates: false
-                }}
-              >
-                {stadions.map((coordinates, index) => (
-                  <Placemark
-                    onClick={() => handlePlacemarkClick(coordinates._id)}
-                    key={index}
-                    properties={{ iconCaption: currency(coordinates.cost) }}
-                    options={{ preset: '', iconColor: 'red' }}
-                    geometry={[coordinates.lat, coordinates.lng]}
-                  />
-                ))}
-              </Clusterer>
-            </Map>
-          </YMaps>
-        )
-                }
+              {stadions.map((coordinates, index) => (
+                <Placemark
+                  onClick={() => handlePlacemarkClick(coordinates._id)}
+                  key={index}
+                  properties={{ iconCaption: currency(coordinates.cost) }}
+                  options={{ preset: '', iconColor: 'red' }}
+                  geometry={[coordinates.lat, coordinates.lng]}
+                />
+              ))}
+            </Clusterer>
+          </Map>
+        </YMaps>
+      )}
     </main>
   )
 }
