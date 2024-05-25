@@ -1,7 +1,7 @@
 import Link from 'next/link'
 function NoToken () {
   return (
-    <main className='mt-16 flex flex-col items-center justify-center gap-2'>
+    <div className=' mt-40 flex flex-col items-center justify-center gap-2  '>
       <h2 className='dark:text-white md:text-3xl text-lg text-center  p-5'>
         Ma&apos;lumotlarni ko&apos;rish uchun oldin tizimga kiring!
       </h2>
@@ -12,8 +12,9 @@ function NoToken () {
         >
           Kirish{' '}
         </Link>
+
       </div>
-    </main>
+    </div>
   )
 }
 
