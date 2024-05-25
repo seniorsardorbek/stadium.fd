@@ -100,7 +100,7 @@ export const fadeIn = (direction: string, type: string, delay: number, duration:
     y: 0,
     opacity: 1,
     transition: {
-      type,
+      type ,
       delay,
       duration,
       ease: 'easeOut',

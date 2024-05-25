@@ -5,6 +5,7 @@ import {
   useLightboxProps,
   useLightboxState,
 } from "yet-another-react-lightbox";
+import { SERVER } from "../utils/api";
 
 function isNextJsImage(slide : any) {
   return (
@@ -43,7 +44,7 @@ console.log(slide);
       <Image
         fill
         alt=""
-        src={"https://bd.minimatch.uz/" + slide.src}
+        src={SERVER + slide.src}
         loading="eager"
         draggable={false}
         placeholder={slide.blurDataURL ? "blur" : undefined}

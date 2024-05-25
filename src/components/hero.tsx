@@ -1,7 +1,7 @@
 'use client'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { textVariant, textVariant2 } from '../utils/motion'
+import Link from 'next/link'
+import { fadeIn } from '../utils/motion'
 
 function Hero () {
   return (
@@ -21,14 +21,14 @@ function Hero () {
             className='text-center'
           >
             <motion.h1
-            variants={textVariant(1)}
+            variants={fadeIn('shadow' , ""  , 1 , 1 )}
             initial='hidden'
             whileInView='show'
             viewport={{ once: true, amount: 0.25 }} className='text-3xl font-bold tracking-widest dark:text-white text-gray-900  sm:text-6xl'>
               Mini-match O&apos;zingizga qulay vaqtni band qiling!
             </motion.h1>
             <motion.p
-            variants={textVariant(0.5)}
+            variants={fadeIn('shadow' , ""  , 1 , 1 )}
             initial='hidden'
             whileInView='show'
             viewport={{ once: true, amount: 0.25 }} className='mt-6 text-lg leading-8 dark:text-white text-gray-900'>
@@ -36,7 +36,7 @@ function Hero () {
             </motion.p>
           </div>
           <motion.div
-            variants={textVariant2}
+            variants={fadeIn('shadow' , ""  , 1 , 1 )}
             initial='hidden'
             whileInView='show'
             viewport={{ once: true, amount: 0.25 }} className='mt-10 flex items-center justify-center gap-x-6'>

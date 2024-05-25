@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 }
 export default function Home() {
   return (
-    <main className=' ' >
+    <main className='flex-1' >
       <Hero/>
       {/* <Sponsors/> */}
 

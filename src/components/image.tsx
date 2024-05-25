@@ -1,14 +1,15 @@
-"use client";
-import Image from "next/image";
-import { FC, useState } from "react";
+'use client'
+import Image from 'next/image'
+import { FC, useState } from 'react'
+import { SERVER } from '../utils/api'
 
 interface Props {
-  url: string | File;
-  alt: string;
-  extraClass?: string;
-  width?: number;
-  height?: number;
-  fill?: boolean;
+  url: string | File
+  alt: string
+  extraClass?: string
+  width?: number
+  height?: number
+  fill?: boolean
 }
 
 const CustomImage: FC<Props> = ({
@@ -17,20 +18,20 @@ const CustomImage: FC<Props> = ({
   fill,
   extraClass,
   width,
-  height,
+  height
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   return (
     <>
       {fill ? (
         <Image
-        src={"https://bd.minimatch.uz/" + url}
+          src={SERVER + url}
           alt={alt}
           className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${
             isLoading
-              ? "scale-110 blur-2xl grayscale"
-              : "scale-100 blur-0 grayscale-0"
+              ? 'scale-110 blur-2xl grayscale'
+              : 'scale-100 blur-0 grayscale-0'
           }}`}
           fill
           priority={true}
@@ -38,22 +39,22 @@ const CustomImage: FC<Props> = ({
         />
       ) : (
         <Image
-        src={"https://bd.minimatch.uz/" + url}
+          src={SERVER + url}
           alt={alt}
           className={` block   object-cover  duration-700 ease-in-out group-hover:opacity-75 ${extraClass} ${
             isLoading
-              ? "scale-110 blur-2xl grayscale"
-              : "scale-100 blur-0 grayscale-0"
+              ? 'scale-110 blur-2xl grayscale'
+              : 'scale-100 blur-0 grayscale-0'
           }}`}
           priority={true}
           width={0}
           height={0}
-          style={{width :'100%' , height :'auto'}}
+          style={{ width: '100%', height: 'auto' }}
           onLoadingComplete={() => setIsLoading(false)}
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default CustomImage;
+export default CustomImage
